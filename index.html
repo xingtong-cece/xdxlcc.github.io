@@ -1,0 +1,3598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>心动修罗场：你的专属结局 | 星瞳测测</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === 基础样式和品牌色彩系统 === */
+        :root {
+            --primary-gradient: linear-gradient(to bottom, #E6E6FA, #FFFFFF);
+            --accent-color: #191970;
+            --highlight-gold: #FFD700;
+            --highlight-purple: #4B0082;
+            --glass-effect: rgba(255, 255, 255, 0.25);
+            --shadow-light: rgba(230, 230, 250, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --character-black: #2C2C2C;
+            --character-green: #2E8B57;
+            --character-pink: #FF69B4;
+            --character-yellow: #FFD700;
+            --rose-pink: #E75480;
+            --rose-gold: #B76E79;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            font-size: 14px;
+        }
+        
+        body {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* === 紫色星空背景效果 - 优化显示范围 === */
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #1a0a2a, #2d1b4a, #1a0a2a);
+            /* 限制星空显示范围，避免在手机上显示过大 */
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #E6E6FA;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        .star-large {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 10px 2px rgba(230, 230, 250, 0.8);
+        }
+        
+        .star-medium {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 6px 1px rgba(230, 230, 250, 0.6);
+        }
+        
+        .star-small {
+            width: 1px;
+            height: 1px;
+            box-shadow: 0 0 4px 1px rgba(230, 230, 250, 0.4);
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(230, 230, 250, 0.1) 1px, transparent 2px),
+                radial-gradient(circle at 80% 70%, rgba(230, 230, 250, 0.1) 1px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(230, 230, 250, 0.1) 1px, transparent 2px);
+            background-size: 300px 300px, 400px 400px, 500px 500px;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+        
+        /* === 品牌标题 === */
+        .brand-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .brand-title h1 {
+            color: var(--accent-color);
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            line-height: 1.3;
+        }
+        
+        .brand-title .subtitle {
+            color: var(--highlight-purple);
+            font-size: 14px;
+            font-weight: 300;
+        }
+        
+        .brand-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--highlight-gold), transparent);
+            margin: 15px auto 0;
+        }
+        
+        /* === 测试卡片 - 贴合边缘 === */
+        .quiz-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px var(--shadow-light);
+            padding: 25px 15px; /* 减小左右内边距 */
+            margin: 10px 0; /* 移除左右外边距，使卡片贴合边缘 */
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--highlight-purple), var(--highlight-gold));
+            border-radius: 20px 20px 0 0;
+        }
+        
+        /* === 小说书页设计 === */
+        .novel-container {
+            margin-bottom: 30px;
+        }
+        
+        .book-page {
+            background: #fefefe;
+            border-radius: 8px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e6e6fa;
+            position: relative;
+            min-height: 400px;
+            display: none;
+            animation: pageTurn 0.6s ease-out;
+        }
+        
+        @keyframes pageTurn {
+            0% { opacity: 0; transform: rotateY(-10deg) translateX(-20px); }
+            100% { opacity: 1; transform: rotateY(0) translateX(0); }
+        }
+        
+        .book-page.active {
+            display: block;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--highlight-gold);
+        }
+        
+        .chapter-title {
+            font-size: 20px;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .chapter-subtitle {
+            font-size: 14px;
+            color: var(--highlight-purple);
+            font-style: italic;
+        }
+        
+        .novel-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .novel-content p {
+            margin-bottom: 18px;
+            text-indent: 2em;
+        }
+        
+        .dialogue {
+            font-style: italic;
+            color: var(--accent-color);
+            margin: 15px 0;
+            padding-left: 30px;
+            border-left: 3px solid var(--highlight-gold);
+            background: rgba(255, 215, 0, 0.05);
+            padding: 12px 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .page-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        .nav-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background: #2a2a8a;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* === 角色选择卡片 - 修改为两列 === */
+        .character-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .character-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .character-card:hover, .character-card:active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .character-card.selected {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(230, 230, 250, 0.7);
+        }
+        
+        .character-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .character-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+        
+        .character-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* === 按钮样式 === */
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 14px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(25, 25, 112, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 50px;
+            width: 100%;
+            text-decoration: none; /* 删除下划线 */
+        }
+        
+        .btn:hover, .btn:active {
+            background: #2a2a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(25, 25, 112, 0.3);
+        }
+        
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--highlight-gold), #FFA500);
+            color: #333;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-gold:hover, .btn-gold:active {
+            background: linear-gradient(135deg, #E6C200, #E69500);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        /* === 角色选择页按钮容器 === */
+        .character-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        .character-btn-container .btn {
+            max-width: 100%;
+        }
+        
+        .fate-btn {
+            font-size: 18px;
+            padding: 18px 30px;
+            min-height: 60px;
+            font-weight: 600;
+        }
+        
+        .back-novel-btn {
+            font-size: 16px;
+            padding: 14px 25px;
+            min-height: 50px;
+        }
+        
+        /* === 答题页按钮容器 === */
+        .quiz-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .secondary-controls {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .back-character-btn {
+            background: white;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(25, 25, 112, 0.1);
+        }
+        
+        .back-character-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(25, 25, 112, 0.2);
+        }
+        
+        .prev-question-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .prev-question-btn:hover {
+            background: #2a2a8a;
+            transform: translateY(-2px);
+        }
+        
+        /* === 结果页按钮容器 === */
+        .result-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        .result-btn-container .btn {
+            max-width: 100%;
+        }
+        
+        /* 问题计数器 */
+        .question-counter {
+            text-align: right;
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        /* === 进度指示器 === */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(230, 230, 250, 0.3);
+            border-radius: 4px;
+            margin: 20px 0 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--highlight-purple), var(--accent-color));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* === 问题样式 - 简化版 === */
+        .question-container {
+            margin-bottom: 20px;
+        }
+        
+        .character-indicator {
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
+        .question-text {
+            font-size: 20px;
+            color: var(--accent-color);
+            line-height: 1.5;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 500;
+            padding: 0 10px;
+        }
+        
+        /* === 选项样式 - 简化版 === */
+        .options-container {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .option-item {
+            background: white;
+            border-radius: 18px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid rgba(230, 230, 250, 0.5);
+            position: relative;
+            overflow: hidden;
+            font-size: 15px;
+            color: #333;
+            text-align: left;
+            padding-right: 50px;
+        }
+        
+        .option-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(230, 230, 250, 0.1), rgba(255, 255, 255, 0.3));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .option-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+            border-color: var(--accent-color);
+        }
+        
+        .option-item:hover::before {
+            opacity: 1;
+        }
+        
+        .option-item.selected {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(230, 230, 250, 0.7);
+            background: rgba(230, 230, 250, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .option-item.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        /* === 结果页面整体优化 - 最小化卡片间距 === */
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* 最小化间距 */
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(230,230,250,0.3));
+            border-radius: 25px;
+            padding: 20px; /* 减小内边距 */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* === 结果页面优化样式 - 最小化间距 === */
+        .result-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 8px 0; /* 最小化外边距 */
+            text-align: center;
+            padding: 12px; /* 最小化内边距 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 230, 250, 0.3));
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .result-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--highlight-purple), var(--accent-color), var(--highlight-gold));
+        }
+
+        .result-type {
+            font-size: 28px;
+            color: var(--highlight-purple);
+            margin-bottom: 12px; /* 减小间距 */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--highlight-purple), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .result-type::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--highlight-gold), transparent);
+        }
+
+        .result-badge {
+            width: 180px; /* 减小尺寸 */
+            height: 180px;
+            margin: 0 auto 12px; /* 减小间距 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-icon {
+            width: 140px; /* 减小尺寸 */
+            height: 140px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+            border-radius: 50%;
+            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px; /* 减小字体大小 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(230, 230, 250, 0.5));
+            border: 5px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease;
+        }
+
+        .result-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .result-name {
+            font-size: 32px; /* 减小字体大小 */
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10px; /* 减小间距 */
+            background: linear-gradient(135deg, var(--accent-color), var(--highlight-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .result-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 30%;
+            width: 40%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--highlight-gold), transparent);
+        }
+
+        .result-content {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 12px; /* 减小内边距 */
+            margin-bottom: 12px; /* 减小间距 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 800px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--highlight-purple), var(--accent-color));
+        }
+
+        .result-content h2 {
+            font-size: 20px;
+            color: var(--accent-color);
+            margin-bottom: 8px; /* 减小间距 */
+            font-weight: 600;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .result-content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 18px;
+            background: var(--highlight-gold);
+            border-radius: 2px;
+        }
+
+        .result-content p {
+            font-size: 15px; /* 与角色深度解析保持一致 */
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+            margin-bottom: 0;
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', serif;
+        }
+
+        .friend-perspective {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(75, 0, 130, 0.05));
+            border-left: 3px solid var(--highlight-gold);
+            margin-top: 8px; /* 减小间距 */
+        }
+
+        /* 角色特定颜色优化 */
+        .character-black { 
+            color: var(--character-black); 
+            background: linear-gradient(135deg, var(--character-black), #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .character-green { 
+            color: var(--character-green);
+            background: linear-gradient(135deg, var(--character-green), #3CB371);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .character-pink { 
+            color: var(--character-pink);
+            background: linear-gradient(135deg, var(--character-pink), #FF1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .character-yellow { 
+            color: var(--character-yellow);
+            background: linear-gradient(135deg, var(--character-yellow), #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-black { 
+            background: linear-gradient(135deg, rgba(44, 44, 44, 0.1), rgba(85, 85, 85, 0.05));
+            border: 1px solid rgba(44, 44, 44, 0.2);
+        }
+
+        .bg-green { 
+            background: linear-gradient(135deg, rgba(46, 139, 87, 0.1), rgba(60, 179, 113, 0.05));
+            border: 1px solid rgba(46, 139, 87, 0.2);
+        }
+
+        .bg-pink { 
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.05));
+            border: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .bg-yellow { 
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        /* === 角色深度解析特殊设计 - 最小化间距 === */
+        .character-analysis {
+            background: linear-gradient(135deg, rgba(230, 230, 250, 0.2), rgba(255, 255, 255, 0.8));
+            border-radius: 18px;
+            padding: 18px; /* 减小内边距 */
+            margin: 20px 0; /* 减小外边距 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .character-analysis::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--highlight-purple), var(--accent-color), var(--highlight-gold));
+        }
+        
+        .character-analysis h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 18px; /* 减小间距 */
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .character-analysis h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+            width: 20%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--highlight-gold), transparent);
+        }
+        
+        .analysis-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px; /* 减小间距 */
+            margin-top: 10px; /* 减小间距 */
+        }
+        
+        .analysis-step {
+            background: white;
+            border-radius: 15px;
+            padding: 16px; /* 减小内边距 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--highlight-purple);
+        }
+        
+        .analysis-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--highlight-purple), var(--accent-color));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            margin-bottom: 10px; /* 减小间距 */
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(75, 0, 130, 0.2);
+        }
+        
+        .analysis-step p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', serif;
+            margin-bottom: 0;
+        }
+        
+        /* === 加载动画 === */
+        .loading-dots {
+            display: inline-flex;
+            gap: 5px;
+        }
+        
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { 
+                transform: scale(0);
+            } 40% { 
+                transform: scale(1.0);
+            }
+        }
+        
+        /* === 页面布局 - 贴合边缘 === */
+        .page {
+            display: none;
+            padding: 40px 15px;
+            animation: fadeIn 0.5s ease;
+            max-width: 100%;
+            width: 100%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        /* === 七天过期页面样式 - 应用新样式 === */
+        .expired-page {
+            display: none;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a0a2a, #2d1b4a, #1a0a2a);
+        }
+
+        .expired-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .expired-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--highlight-purple), var(--accent-color), var(--highlight-gold));
+        }
+        
+        /* 图标样式 */
+        .expired-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            color: var(--highlight-gold);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 标题样式 */
+        .expired-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--highlight-gold), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 消息文本 */
+        .expired-message {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 功能特点 */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--highlight-gold);
+        }
+        
+        .feature-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* 按钮容器 */
+        .expired-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* 用户信息 */
+        .user-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .user-info p {
+            margin: 5px 0;
+        }
+        
+        /* 品牌脚注 */
+        .brand-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: var(--accent-color);
+            font-size: 13px; /* 修改：字体调小 */
+            font-weight: 500;
+            line-height: 1.6;
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', serif;
+        }
+        
+        .brand-footer .icon {
+            margin: 0 5px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .expired-container {
+                padding: 40px 25px;
+            }
+            
+            .expired-title {
+                font-size: 28px;
+            }
+            
+            .expired-icon {
+                font-size: 70px;
+            }
+            
+            .expired-actions .btn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature {
+                min-width: 200px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .expired-container {
+                padding: 30px 20px;
+            }
+            
+            .expired-title {
+                font-size: 24px;
+            }
+            
+            .expired-message {
+                font-size: 15px;
+            }
+        }
+        
+        /* === 响应式调整 - 移动设备优化 === */
+        @media (min-width: 768px) {
+            .brand-title h1 {
+                font-size: 32px;
+            }
+            
+            .brand-title .subtitle {
+                font-size: 16px;
+            }
+            
+            .quiz-card {
+                padding: 30px 20px; /* 桌面端适当增加内边距 */
+                margin: 20px auto;
+                max-width: 800px; /* 加宽卡片 */
+                border-radius: 25px;
+            }
+            
+            .book-page {
+                padding: 40px 35px;
+            }
+            
+            .novel-content {
+                font-size: 17px;
+            }
+            
+            .character-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .character-btn-container .btn {
+                max-width: 400px;
+            }
+            
+            .result-btn-container .btn {
+                max-width: 400px;
+            }
+            
+            .quiz-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .secondary-controls {
+                width: auto;
+                justify-content: flex-end;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .character-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quiz-card {
+                max-width: 900px; /* 进一步加宽卡片 */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .result-badge {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .result-icon {
+                width: 120px;
+                height: 120px;
+                font-size: 60px;
+            }
+            
+            .result-name {
+                font-size: 28px;
+            }
+            
+            .result-type {
+                font-size: 24px;
+            }
+            
+            .result-content {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .result-content h2 {
+                font-size: 18px;
+                margin-bottom: 10px;
+                padding-left: 10px;
+            }
+            
+            .result-content p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            
+            .friend-perspective {
+                margin-top: 12px;
+            }
+            
+            .character-analysis {
+                padding: 20px;
+                margin: 25px 0;
+                border-radius: 15px;
+            }
+            
+            .analysis-steps {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 12px;
+            }
+            
+            .analysis-step {
+                padding: 18px;
+                border-radius: 12px;
+                border-left: 3px solid var(--highlight-purple);
+            }
+            
+            /* 移动设备优化：调整字体大小和间距 */
+            .question-text {
+                font-size: 18px;
+                line-height: 1.4;
+            }
+            
+            .option-item {
+                font-size: 14px;
+                padding: 14px 18px;
+                padding-right: 45px;
+            }
+            
+            .btn {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+            
+            .fate-btn {
+                font-size: 17px;
+                padding: 16px 25px;
+                min-height: 55px;
+            }
+            
+            .back-novel-btn {
+                font-size: 15px;
+                padding: 12px 20px;
+                min-height: 45px;
+            }
+            
+            /* 小说内容字体大小调整 */
+            .novel-content {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            
+            /* 章节标题字体大小 */
+            .chapter-title {
+                font-size: 18px;
+            }
+            
+            /* 角色名称字体大小 */
+            .character-name {
+                font-size: 15px;
+            }
+            
+            /* 角色描述字体大小 */
+            .character-desc {
+                font-size: 11px;
+                line-height: 1.3;
+            }
+            
+            /* 对话字体大小 */
+            .dialogue {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+            
+            /* 导航按钮字体大小 */
+            .nav-btn {
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+            
+            /* 进度文本字体大小 */
+            .progress-text {
+                font-size: 13px;
+            }
+            
+            /* 角色指示器字体大小 */
+            .character-indicator {
+                font-size: 14px;
+            }
+            
+            /* 问题计数器字体大小 */
+            .question-counter {
+                font-size: 14px;
+            }
+            
+            /* 品牌标题字体大小 */
+            .brand-title h1 {
+                font-size: 24px;
+            }
+            
+            .brand-title .subtitle {
+                font-size: 13px;
+            }
+            
+            /* 品牌脚注字体大小 */
+            .brand-footer, .special-footer p {
+                font-size: 13px; /* 移动端适当减小 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .result-badge {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .result-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+            
+            .result-name {
+                font-size: 24px;
+            }
+            
+            .result-type {
+                font-size: 20px;
+            }
+            
+            .result-section {
+                padding: 12px;
+                margin: 12px 0;
+                border-radius: 15px;
+            }
+            
+            .result-content {
+                padding: 12px;
+                margin-bottom: 12px;
+                border-radius: 10px;
+            }
+            
+            .result-content h2 {
+                font-size: 16px;
+                margin-bottom: 8px;
+                padding-left: 8px;
+            }
+            
+            .result-content p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            
+            .result-content::before {
+                width: 3px;
+            }
+            
+            .result-content h2::before {
+                width: 3px;
+                height: 16px;
+            }
+            
+            .friend-perspective {
+                margin-top: 10px;
+                border-left: 2px solid var(--highlight-gold);
+            }
+            
+            .character-analysis h2 {
+                font-size: 22px;
+            }
+            
+            /* 小屏幕设备优化 */
+            .quiz-card {
+                padding: 18px 12px; /* 移动端进一步减小内边距 */
+                margin: 8px 0;
+            }
+            
+            .book-page {
+                padding: 20px 18px;
+            }
+            
+            .novel-content {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            
+            .character-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .question-text {
+                font-size: 17px;
+                margin-bottom: 20px;
+            }
+            
+            .option-item {
+                font-size: 13px;
+                padding: 12px 16px;
+                padding-right: 40px;
+            }
+            
+            .secondary-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .prev-question-btn, .back-character-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* 进一步减小字体 */
+            .character-name {
+                font-size: 14px;
+            }
+            
+            .character-desc {
+                font-size: 10px;
+            }
+            
+            .brand-title h1 {
+                font-size: 22px;
+            }
+            
+            .brand-title .subtitle {
+                font-size: 12px;
+            }
+            
+            /* 减小卡片内边距 */
+            .quiz-card {
+                padding: 18px 12px;
+            }
+            
+            .book-page {
+                padding: 20px 18px;
+            }
+            
+            /* 减小角色卡片内边距 */
+            .character-card {
+                padding: 14px;
+                min-height: 120px;
+            }
+            
+            /* 减小角色图标大小 */
+            .character-icon {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+            
+            /* 角色分析进一步调整 */
+            .character-analysis {
+                padding: 18px 15px;
+                margin: 20px 0;
+            }
+            
+            .analysis-steps {
+                gap: 12px;
+                margin-top: 10px;
+            }
+            
+            .analysis-step {
+                padding: 15px;
+            }
+            
+            /* 品牌脚注字体大小 */
+            .brand-footer, .special-footer p {
+                font-size: 12px; /* 小屏幕设备进一步减小 */
+            }
+        }
+        
+        /* 针对小屏幕设备的额外优化 */
+        @media (max-width: 360px) {
+            * {
+                font-size: 13px;
+            }
+            
+            .quiz-card {
+                padding: 15px 10px; /* 小屏幕设备进一步减小内边距 */
+                margin: 5px 0;
+            }
+            
+            .book-page {
+                padding: 18px 15px;
+            }
+            
+            .character-card {
+                padding: 12px;
+                min-height: 110px;
+            }
+        }
+        
+        /* === 移动端特定优化 === */
+        .mobile-optimized {
+            touch-action: manipulation;
+        }
+        
+        /* 防止移动端缩放 */
+        input, select, textarea {
+            font-size: 16px;
+        }
+        
+        /* 移动端滚动优化 */
+        .quiz-card {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* 移动端安全区域适配 */
+        @supports(padding: max(0px)) {
+            .page {
+                padding-left: max(15px, env(safe-area-inset-left));
+                padding-right: max(15px, env(safe-area-inset-right));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* === 专属品牌脚注 === */
+        .special-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(230, 230, 250, 0.3), rgba(255, 255, 255, 0.7));
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--highlight-purple), var(--accent-color), var(--highlight-gold));
+        }
+        
+        .special-footer p {
+            font-size: 13px; /* 修改：字体调小 */
+            color: var(--accent-color);
+            font-weight: 500;
+            line-height: 1.6;
+            margin: 0;
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', serif;
+        }
+        
+        .special-footer .heart {
+            color: var(--rose-pink);
+            margin: 0 5px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 过期提示页 -->
+    <div class="page expired-page" id="expiredPage">
+        <!-- 紫色星空背景 -->
+        <div class="stars-bg" id="expiredStarsBg"></div>
+        
+        <!-- 过期提示容器 -->
+        <div class="expired-container">
+            <div class="expired-icon">⏰</div>
+            <div class="expired-title">体验权限已到期</div>
+            
+            <div class="expired-message">
+                您的7天体验期已结束<br>
+                感谢您使用「心动修罗场：你的专属结局」<br>
+                重新购买即可继续体验完整内容
+            </div>
+            
+            <!-- 功能特点展示 -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎭</div>
+                    <div class="feature-text">多角色剧情</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💖</div>
+                    <div class="feature-text">专属结局</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌟</div>
+                    <div class="feature-text">深度解析</div>
+                </div>
+            </div>
+            
+            <div class="expired-actions">
+                <a href="https://xhslink.com/m/1HpWUO6Yhkn" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i>重新购买7天体验
+                </a>
+                <button class="btn btn-secondary" onclick="location.reload()">
+                    <i class="fas fa-redo"></i>重新检查权限
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <p>用户ID: <strong>XT_8F3D9A2C</strong></p>
+                <p>到期时间: 2024年1月15日</p>
+            </div>
+            
+            <div class="brand-footer">
+                <span class="icon">✨</span> 星瞳测测 · 期待与您再次相遇 <span class="icon">✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 紫色星空背景 -->
+    <div class="stars-bg" id="starsBg">
+        <div class="constellation"></div>
+    </div>
+    
+    <!-- 小说导语页 -->
+    <div class="page" id="novelPage">
+        <div class="quiz-card mobile-optimized">
+            <div class="brand-title">
+                <h1>心动修罗场：你的专属结局</h1>
+                <div class="subtitle">星瞳测测 - 探索你的情感命运</div>
+            </div>
+            
+            <div class="novel-container">
+                <!-- 第一页 -->
+                <div class="book-page active" id="page1">
+                    <div class="page-header">
+                        <div class="chapter-title">第一章</div>
+                        <div class="chapter-subtitle">命运的转折点</div>
+                    </div>
+                    
+                    <div class="novel-content">
+                        <p>深夜十一点，你拖着疲惫的身躯走出顾氏集团大厦。作为顾北辰的特别助理，这已经是你连续加班的第三周。</p>
+                        
+                        <p>手机震动，是一条银行入账短信——刚刚到账的工资让你稍微松了口气。自从半年前父亲生意失败后，整个家庭的重担都落在了你的肩上。</p>
+                        
+                        <div class="dialogue">"还在加班？"一个低沉的声音从身后传来。</div>
+                        
+                        <p>你转身，看到顾北辰站在电梯口。他穿着深灰色西装，领带微微松开，显然也是刚结束工作。</p>
+                        
+                        <div class="dialogue">"明天的并购案资料，我希望九点前看到完整报告。"他的目光锐利如刀，"不要让我失望。"</div>
+                        
+                        <p>你点头应下，看着他走向专属电梯的背影，心中五味杂陈。这个男人既是你的老板，也是你暗恋了两年的人。</p>
+                    </div>
+                    
+                    <div class="page-number">1</div>
+                    <div class="page-navigation">
+                        <button class="nav-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>上一页
+                        </button>
+                        <button class="nav-btn" onclick="turnPage(2)">
+                            下一页<i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第二页 -->
+                <div class="book-page" id="page2">
+                    <div class="page-header">
+                        <div class="chapter-title">第一章</div>
+                        <div class="chapter-subtitle">命运的转折点</div>
+                    </div>
+                    
+                    <div class="novel-content">
+                        <p>回到新租的公寓，你意外发现隔壁在搬家。一个温文尔雅的男子正在指挥工人小心搬运书籍。</p>
+                        
+                        <div class="dialogue">"需要帮忙吗？"他看到你，露出温和的笑容，"我是林清羽，今天刚搬来。"</div>
+                        
+                        <p>你注意到他衬衫上别着A大的校徽——那是你的母校。交谈中得知，他是经济学院新聘的副教授。</p>
+                        
+                        <div class="dialogue">"这么巧？"他眼睛一亮，"我下周正好要在你们公司做讲座，也许我们还会见面。"</div>
+                        
+                        <p>他的笑容让人如沐春风，但你总觉得那双看似清澈的眼眸深处，藏着你看不懂的情绪。</p>
+                    </div>
+                    
+                    <div class="page-number">2</div>
+                    <div class="page-navigation">
+                        <button class="nav-btn" onclick="turnPage(1)">
+                            <i class="fas fa-chevron-left"></i>上一页
+                        </button>
+                        <button class="nav-btn" onclick="turnPage(3)">
+                            下一页<i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第三页 -->
+                <div class="book-page" id="page3">
+                    <div class="page-header">
+                        <div class="chapter-title">第一章</div>
+                        <div class="chapter-subtitle">命运的转折点</div>
+                    </div>
+                    
+                    <div class="novel-content">
+                        <p>周末，你被好友拉去参加一场艺术展。在画廊角落，你被一幅描绘日落的油画深深吸引。</p>
+                        
+                        <div class="dialogue">"喜欢这幅画？"一个阳光的声音响起。</div>
+                        
+                        <p>转身看到一个穿着休闲装的男子，笑容温暖如画中夕阳。</p>
+                        
+                        <div class="dialogue">"我叫沈墨阳，是这幅画的作者。"他伸出手，"能遇到懂得欣赏它的人，是我的荣幸。"</div>
+                        
+                        <p>你们聊了很久，从艺术到人生。他告诉你，画画是他的梦想，虽然家人希望他继承家业。</p>
+                        
+                        <div class="dialogue">"有时候，我们需要的不是选择，而是勇气。"他意味深长地说。</div>
+                    </div>
+                    
+                    <div class="page-number">3</div>
+                    <div class="page-navigation">
+                        <button class="nav-btn" onclick="turnPage(2)">
+                            <i class="fas fa-chevron-left"></i>上一页
+                        </button>
+                        <button class="nav-btn" onclick="turnPage(4)">
+                            下一页<i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第四页 -->
+                <div class="book-page" id="page4">
+                    <div class="page-header">
+                        <div class="chapter-title">第一章</div>
+                        <div class="chapter-subtitle">命运的转折点</div>
+                    </div>
+                    
+                    <div class="novel-content">
+                        <p>周一的商业酒会上，你代表顾氏集团出席。在人群中，你看到了一个熟悉的身影——苏婉柔。</p>
+                        
+                        <p>她曾是大学时期处处与你竞争的对手，如今已是苏氏集团的继承人。她端着酒杯向你走来，笑容优雅得体。</p>
+                        
+                        <div class="dialogue">"好久不见。"她的目光在你身上打量，"听说你现在是顾北辰的助理？真是...令人意外。"</div>
+                        
+                        <p>你感受到她话语中的试探。大学时期她就对你抱有莫名的敌意，如今在商场上重逢，这份敌意似乎有增无减。</p>
+                        
+                        <div class="dialogue">"希望我们...合作愉快。"她举杯示意，眼神中闪过一丝算计。</div>
+                    </div>
+                    
+                    <div class="page-number">4</div>
+                    <div class="page-navigation">
+                        <button class="nav-btn" onclick="turnPage(3)">
+                            <i class="fas fa-chevron-left"></i>上一页
+                        </button>
+                        <button class="nav-btn" onclick="turnPage(5)">
+                            下一页<i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第五页 -->
+                <div class="book-page" id="page5">
+                    <div class="page-header">
+                        <div class="chapter-title">第一章</div>
+                        <div class="chapter-subtitle">命运的转折点</div>
+                    </div>
+                    
+                    <div class="novel-content">
+                        <p>一个月内，四位截然不同的男女相继出现在你的生活中。</p>
+                        
+                        <p>顾北辰——你的老板，那个让你又敬又畏的男人，开始对你展现出不同寻常的关注。</p>
+                        
+                        <p>林清羽——温柔体贴的邻居教授，总是在你需要时适时出现。</p>
+                        
+                        <p>沈墨阳——阳光自由的艺术家，让你感受到久违的心动。</p>
+                        
+                        <p>苏婉柔——亦敌亦友的商业对手，她的出现让一切变得更加复杂。</p>
+                        
+                        <p>命运的齿轮已经开始转动，你的每一个选择，都将改变故事的走向...</p>
+                    </div>
+                    
+                    <div class="page-number">5</div>
+                    <div class="page-navigation">
+                        <button class="nav-btn" onclick="turnPage(4)">
+                            <i class="fas fa-chevron-left"></i>上一页
+                        </button>
+                        <button class="nav-btn" onclick="completeNovel()">
+                            开始我的故事<i class="fas fa-feather-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 品牌脚注 -->
+            <div class="brand-footer">
+                <span class="icon">✨</span> 星瞳测测 · 在这场心动修罗场中，找到只为你写的剧本 <span class="icon">✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 角色选择页 -->
+    <div class="page" id="characterPage">
+        <div class="quiz-card">
+            <div class="brand-title">
+                <h1>心动修罗场：你的专属结局</h1>
+                <div class="subtitle">星瞳测测 - 探索你的情感命运</div>
+            </div>
+            
+            <div class="character-cards">
+                <div class="character-card selected" data-character="gu">
+                    <div class="character-icon character-black">🖤</div>
+                    <div class="character-name character-black">顾北辰</div>
+                    <div class="character-desc">深渊凝视<br>控制欲超强·高智商霸总</div>
+                </div>
+                
+                <div class="character-card" data-character="lin">
+                    <div class="character-icon character-green">💚</div>
+                    <div class="character-name character-green">林清羽</div>
+                    <div class="character-desc">温柔毒药<br>绿茶属性·偏执学长</div>
+                </div>
+                
+                <div class="character-card" data-character="su">
+                    <div class="character-icon character-pink">💗</div>
+                    <div class="character-name character-pink">苏婉柔</div>
+                    <div class="character-desc">荆棘王冠<br>野心家·隐藏女王</div>
+                </div>
+                
+                <div class="character-card" data-character="shen">
+                    <div class="character-icon character-yellow">💛</div>
+                    <div class="character-name character-yellow">沈墨阳</div>
+                    <div class="character-desc">向阳而生<br>开朗阳光·治愈艺术家</div>
+                </div>
+            </div>
+            
+            <!-- 修改后的按钮容器 -->
+            <div class="character-btn-container">
+                <button class="btn btn-large fate-btn" id="startQuiz">开启你的命运故事</button>
+                <button class="btn btn-outline back-novel-btn" id="backToNovel">回到第一章导语</button>
+            </div>
+            
+            <!-- 品牌脚注 -->
+            <div class="brand-footer">
+                <span class="icon">✨</span> 星瞳测测 · 在这场心动修罗场中，找到只为你写的剧本 <span class="icon">✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 答题页 -->
+    <div class="page" id="quizPage">
+        <div class="quiz-card">
+            <div class="brand-title">
+                <h1>心动修罗场：你的专属结局</h1>
+                <div class="subtitle">星瞳测测 - 探索你的情感命运</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0/20</div>
+            
+            <!-- 角色标识 -->
+            <div class="character-indicator" id="characterIndicator">
+                <!-- 这里会显示当前测试的角色 -->
+            </div>
+            
+            <div class="question-container">
+                <div class="question-text" id="questionText">问题加载中<span class="loading-dots"><span></span><span></span><span></span></span></div>
+                
+                <div class="options-container" id="optionsContainer">
+                    <!-- 选项将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 修改后的答题页按钮容器 -->
+            <div class="quiz-controls">
+                <div class="question-counter">第 <span id="currentQuestion">1</span> 题 / 共 20 题</div>
+                
+                <div class="secondary-controls">
+                    <button class="back-character-btn" id="backToCharacter">
+                        <i class="fas fa-user-circle"></i>回到选角色
+                    </button>
+                    <button class="prev-question-btn" id="prevQuestion">
+                        <i class="fas fa-arrow-left"></i>上一题
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 品牌脚注 -->
+            <div class="brand-footer">
+                <span class="icon">✨</span> 星瞳测测 · 在这场心动修罗场中，找到只为你写的剧本 <span class="icon">✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 结果页 -->
+    <div class="page" id="resultPage">
+        <div class="quiz-card">
+            <div class="brand-title">
+                <h1>心动修罗场：你的专属结局</h1>
+                <div class="subtitle">你的心动修罗场专属结局</div>
+            </div>
+            
+            <div class="results-container">
+                <div class="result-card" id="resultCard">
+                    <div class="result-section">
+                        <div class="result-type" id="resultType">结局类型</div>
+                        <div class="result-badge">
+                            <div class="result-icon" id="resultIcon">💖</div>
+                        </div>
+                        <div class="result-name" id="resultName">结局名称</div>
+                        
+                        <div class="result-content">
+                            <h2>结局分析</h2>
+                            <p id="resultAnalysis"></p>
+                        </div>
+                        
+                        <div class="result-content friend-perspective">
+                            <h2>日常写照</h2>
+                            <p id="resultDaily"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 角色深度解析 -->
+            <div class="character-analysis">
+                <h2>角色深度解析</h2>
+                <div class="analysis-steps" id="characterAnalysis">
+                    <!-- 角色分析内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 修改后的结果页按钮容器 -->
+            <div class="result-btn-container">
+                <button class="btn btn-large" id="restartTest">重新测试</button>
+                <a href="https://xhslink.com/m/1HpWUO6Yhkn" target="_blank" class="btn btn-large btn-gold">前往「星瞳测测」小红书主页</a>
+            </div>
+            
+            <!-- 专属品牌脚注 -->
+            <div class="special-footer">
+                <p>✨ 星瞳测测 · 在这场心动修罗场中，找到只为你写的剧本 ✨</p>
+            </div>
+            
+            <!-- 星轨ID -->
+            <div style="text-align: center; margin-top: 30px; font-family: monospace; color: var(--accent-color); font-size: 14px;">
+                星瞳测测ID: <a href="https://xhslink.com/m/1HpWUO6Yhkn" target="_blank" style="color: var(--accent-color); text-decoration: underline;" id="starTrackId">ST-XXXX-XXXX</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === 店主跳过机制 ===
+        // 店主特殊密码，您可以随时修改这个密码
+        const OWNER_PASSWORD = "xingtong2024";
+        
+        // 检查是否是店主
+        function isOwner() {
+            // 方法1：URL参数检查
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('owner') === OWNER_PASSWORD) {
+                return true;
+            }
+            
+            // 方法2：本地存储检查（方便店主长期使用）
+            if (localStorage.getItem('xingtong_owner') === OWNER_PASSWORD) {
+                return true;
+            }
+            
+            // 方法3：控制台命令（开发者工具）
+            if (window.isOwnerMode) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        // 店主登录函数（在控制台执行）
+        function ownerLogin(password) {
+            if (password === OWNER_PASSWORD) {
+                localStorage.setItem('xingtong_owner', password);
+                window.isOwnerMode = true;
+                console.log('✅ 店主模式已激活！');
+                checkAccess(); // 重新检查访问权限
+                return true;
+            } else {
+                console.log('❌ 密码错误');
+                return false;
+            }
+        }
+        
+        // === 跨浏览器访问控制 ===
+        function initializeAccessControl() {
+            // 如果是店主，直接跳过时间限制
+            if (isOwner()) {
+                console.log('👑 店主模式：跳过时间限制');
+                return true;
+            }
+            
+            // 获取或生成用户ID
+            const urlParams = new URLSearchParams(window.location.search);
+            let userId = urlParams.get('uid');
+            
+            if (!userId) {
+                userId = generateUserId();
+                // 重定向到带用户ID的URL，确保跨浏览器一致性
+                const newUrl = window.location.origin + window.location.pathname + '?uid=' + encodeURIComponent(userId);
+                if (!window.location.search) {
+                    window.location.replace(newUrl);
+                    return false; // 停止执行，等待重定向
+                }
+            }
+            
+            // 保存用户ID到本地存储
+            localStorage.setItem('xingtong_user_id', userId);
+            
+            const accessKey = `xingtong_access_${userId}`;
+            let accessData = localStorage.getItem(accessKey);
+            
+            if (!accessData) {
+                // 首次访问记录
+                const accessInfo = {
+                    firstAccess: new Date().getTime(),
+                    userId: userId,
+                    lastAccess: new Date().getTime(),
+                    accessCount: 1,
+                    userAgent: navigator.userAgent.substring(0, 100) // 记录部分UA信息
+                };
+                localStorage.setItem(accessKey, JSON.stringify(accessInfo));
+                console.log('✅ 新用户首次访问，开始计算7天有效期');
+                return true;
+            } else {
+                // 检查有效期
+                const accessInfo = JSON.parse(accessData);
+                const now = new Date().getTime();
+                const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+                const timeUsed = now - accessInfo.firstAccess;
+                const timeRemaining = sevenDaysInMs - timeUsed;
+                
+                if (timeRemaining > 0) {
+                    // 更新访问信息
+                    accessInfo.lastAccess = now;
+                    accessInfo.accessCount = (accessInfo.accessCount || 0) + 1;
+                    localStorage.setItem(accessKey, JSON.stringify(accessInfo));
+                    
+                    const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                    const hoursRemaining = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    
+                    console.log(`✅ 访问权限有效，剩余时间: ${daysRemaining}天${hoursRemaining}小时`);
+                    return true;
+                } else {
+                    console.log('❌ 访问权限已过期');
+                    
+                    // 显示详细的过期信息
+                    const expiredDays = Math.floor(-timeRemaining / (1000 * 60 * 60 * 24));
+                    console.log(`已过期 ${expiredDays} 天`);
+                    
+                    return false;
+                }
+            }
+        }
+        
+        // 生成用户ID
+        function generateUserId() {
+            // 尝试从本地存储获取现有ID
+            let existingId = localStorage.getItem('xingtong_user_id');
+            if (existingId) {
+                return existingId;
+            }
+            
+            // 生成新的唯一ID：时间戳 + 随机数
+            const timestamp = Date.now().toString(36);
+            const randomStr = Math.random().toString(36).substr(2, 9);
+            return 'xt_' + timestamp + '_' + randomStr;
+        }
+        
+        // 检查访问权限
+        function checkAccess() {
+            const hasAccess = initializeAccessControl();
+            
+            if (!hasAccess) {
+                // 显示过期页面
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById('expiredPage').classList.add('active');
+                
+                // 为过期页面生成星空背景
+                createExpiredStars();
+                
+                return false;
+            } else {
+                // 隐藏过期页面，显示正常内容
+                document.getElementById('expiredPage').classList.remove('active');
+                // 默认显示小说页面
+                if (!document.querySelector('.page:not(.expired-page).active')) {
+                    document.getElementById('novelPage').classList.add('active');
+                }
+                return true;
+            }
+        }
+        
+        // 为过期页面生成星空背景
+        function createExpiredStars() {
+            const starsBg = document.getElementById('expiredStarsBg');
+            const starCount = window.innerWidth < 768 ? 150 : 300;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                
+                // 随机大小分类
+                const sizeType = Math.random();
+                if (sizeType < 0.1) {
+                    star.className = 'star star-large';
+                } else if (sizeType < 0.4) {
+                    star.className = 'star star-medium';
+                } else {
+                    star.className = 'star star-small';
+                }
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${2 + Math.random() * 3}s`;
+                
+                starsBg.appendChild(star);
+            }
+        }
+        
+        // === 生成紫色星空背景 ===
+        function createStars() {
+            const starsBg = document.getElementById('starsBg');
+            const starCount = window.innerWidth < 768 ? 150 : 300;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                
+                // 随机大小分类
+                const sizeType = Math.random();
+                if (sizeType < 0.1) {
+                    star.className = 'star star-large';
+                } else if (sizeType < 0.4) {
+                    star.className = 'star star-medium';
+                } else {
+                    star.className = 'star star-small';
+                }
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${2 + Math.random() * 3}s`;
+                
+                starsBg.appendChild(star);
+            }
+        }
+        
+        // === 小说翻页功能 ===
+        function turnPage(pageNumber) {
+            // 隐藏所有页面
+            document.querySelectorAll('.book-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 显示目标页面
+            document.getElementById(`page${pageNumber}`).classList.add('active');
+        }
+        
+        // === 完成小说阅读 ===
+        function completeNovel() {
+            if (!checkAccess()) return;
+            // 切换到角色选择页
+            document.getElementById('novelPage').classList.remove('active');
+            document.getElementById('characterPage').classList.add('active');
+        }
+
+        // === 回到小说导语 ===
+        function backToNovel() {
+            if (!checkAccess()) return;
+            document.getElementById('characterPage').classList.remove('active');
+            document.getElementById('novelPage').classList.add('active');
+            turnPage(1);
+        }
+
+        // === 回到角色选择 ===
+        function backToCharacter() {
+            if (!checkAccess()) return;
+            document.getElementById('quizPage').classList.remove('active');
+            document.getElementById('characterPage').classList.add('active');
+        }
+
+        // === 角色定义 ===
+        const characters = {
+            gu: {
+                name: "顾北辰",
+                icon: "🖤",
+                color: "black",
+                description: "深渊凝视 - 控制欲超强·高智商霸总",
+                questions: [
+                    {
+                        text: "初次见面，你在技术研讨会上对他的核心算法提出一个致命漏洞。他凝视你三秒，递上名片：'明天九点，我办公室详谈。'你会：",
+                        options: [
+                            "A. 准时前往，并带上更详细的报告。",
+                            "B. 犹豫后前往，但主要想看看他什么反应。",
+                            "C. 拒绝，不想卷入麻烦。",
+                            "D. 通过邮件发送详细分析，避免直接接触。"
+                        ]
+                    },
+                    {
+                        text: "他高薪聘你为特别助理，交给你的第一个任务是整理公司十年来的失败项目数据，期限极短。你会：",
+                        options: [
+                            "A. 立刻投入，用效率工具高效完成。",
+                            "B. 向他申请一个临时团队和更高权限。",
+                            "C. 质疑这项任务的意义，要求更换。",
+                            "D. 重点分析几个典型失败案例，并附上启示。"
+                        ]
+                    },
+                    {
+                        text: "他送你一个内部测试版的神经链接设备，用于'提升工作效率'。你会：",
+                        options: [
+                            "A. 兴奋地第一时间试用并反馈。",
+                            "B. 谨慎研究其安全性和隐私条款。",
+                            "C. 拒绝，担心有未知风险。",
+                            "D. 试用，但会自行编写一个监控程序记录设备行为。"
+                        ]
+                    },
+                    {
+                        text: "你发现公司内部系统会评估并量化每位员工的'忠诚度'与'效率值'。你会：",
+                        options: [
+                            "A. 认为合理，数据化管理是趋势。",
+                            "B. 感到不适，但努力提升自己的数值。",
+                            "C. 私下寻找系统的漏洞或屏蔽方法。",
+                            "D. 直接向他提交报告，论述此系统对创造力的扼杀。"
+                        ]
+                    },
+                    {
+                        text: "他在一个重大投资决策上出现误判，你掌握了关键数据。你会：",
+                        options: [
+                            "A. 立刻私下联系他，提供数据。",
+                            "B. 在决策会议上公开数据，证明自己的价值。",
+                            "C. 保持沉默，观察他如何应对危机。",
+                            "D. 利用这份数据，与他谈判更好的待遇。"
+                        ]
+                    },
+                    {
+                        text: "他要求你周末陪同前往一个极限运动场所见客户，理由是'在极端环境下更容易看清一个人'。你会：",
+                        options: [
+                            "A. 答应，并提前进行体能训练。",
+                            "B. 拒绝，认为这毫无必要且危险。",
+                            "C. 答应，但要求签署高额意外保险。",
+                            "D. 反提议一个更能体现智力的挑战项目。"
+                        ]
+                    },
+                    {
+                        text: "他因连续工作72小时晕倒在实验室，你送他去医院。醒来后他会：",
+                        options: [
+                            "A. 立刻连接终端处理积压工作。",
+                            "B. 强制自己休息，但大脑仍在思考方案。",
+                            "C. 对你的帮助表示程序化的感谢。",
+                            "D. 允许你暂时接管部分非核心决策。"
+                        ]
+                    },
+                    {
+                        text: "竞争对手策反了你们的核心团队成员，公司陷入危机。你会：",
+                        options: [
+                            "A. 不离不弃，与他一起寻找技术解决方案。",
+                            "B. 评估风险，开始悄悄更新自己的简历。",
+                            "C. 尝试联系被策反的成员，套取情报。",
+                            "D. 提出一个激进但可能扭转局面的备用方案。"
+                        ]
+                    },
+                    {
+                        text: "他开发了一套'生物信息同步'系统，希望能与你进行初步的数据连接，以'优化协作效率'。你会：",
+                        options: [
+                            "A. 接受，期待这种超越言语的沟通。",
+                            "B. 坚决拒绝，视其为对人格的入侵。",
+                            "C. 要求他首先向你完全开放他的数据。",
+                            "D. 同意尝试，但设定严格的时间和使用范围限制。"
+                        ]
+                    },
+                    {
+                        text: "你发现他通过算法，为你筛选并屏蔽了他认为'无效'或'有害'的社交信息。你会：",
+                        options: [
+                            "A. 接受，相信他的判断更理性。",
+                            "B. 感到愤怒，要求立即关闭此功能。",
+                            "C. 研究他的筛选逻辑，试图理解或破解。",
+                            "D. 也为他定制一套'情感认知'过滤系统作为回敬。"
+                        ]
+                    },
+                    {
+                        text: "他送给你一个定制版的AI管家，能完美管理你的起居生活，但会收集所有数据。你会：",
+                        options: [
+                            "A. 乐于享受这种无缝衔接的便捷服务。",
+                            "B. 仅使用其基础功能，关闭数据上传。",
+                            "C. 将其拆解，研究其代码和运作方式。",
+                            "D. 自己编程，制作一个更听话的'副官'AI来制衡。"
+                        ]
+                    },
+                    {
+                        text: "在一场重要谈判中，他做出了一个你看似不近人情但利益最大化的决定。你会：",
+                        options: [
+                            "A. 支持，商业决策不应掺杂个人感情。",
+                            "B. 私下表达不同意见，认为长期看可能损害声誉。",
+                            "C. 在谈判桌上保持沉默，事后弥补对方关系。",
+                            "D. 当场提出一个更人性化且利益损失极小的替代方案。"
+                        ]
+                    },
+                    {
+                        text: "他希望你将全部资产投入他正在构建的一个全新科技基金。你会：",
+                        options: [
+                            "A. 同意，相信他的眼光和判断力。",
+                            "B. 拒绝，坚持资产的独立和分散配置。",
+                            "C. 投入部分资金，作为风险投资。",
+                            "D. 要求成为基金的管理合伙人之一，参与决策。"
+                        ]
+                    },
+                    {
+                        text: "你发现他为了测试一个产品的安全性，在未完全告知的情况下使用了你的部分行为数据。你会：",
+                        options: [
+                            "A. 理解，这是为了更高效的产品迭代。",
+                            "B. 强烈抗议，并考虑采取法律手段。",
+                            "C. 要求分享该研究的所有数据和成果。",
+                            "D. 以其人之道还治其人之身，收集他的数据用于'研究'。"
+                        ]
+                    },
+                    {
+                        text: "在一次团建中，他破天荒地参与了一场需要信任与合作的游戏。结束后他会：",
+                        options: [
+                            "A. 立刻分析游戏过程中的数据，优化团队协作模型。",
+                            "B. 承认此类活动对建立非逻辑连接有一定价值。",
+                            "C. 认为浪费时间，不如进行脑力激荡。",
+                            "D. 私下问你，他是否表现得'像一个人'。"
+                        ]
+                    },
+                    {
+                        text: "他向你展示他构想的'人类进化蓝图'，通过科技消除情感波动、疾病和低效。你会：",
+                        options: [
+                            "A. 深受吸引，愿成为第一批先行者。",
+                            "B. 感到恐惧，认为这是在毁灭人性。",
+                            "C. 质疑其伦理边界，要求加入制衡机制。",
+                            "D. 提出一个融合科技与人文的替代蓝图。"
+                        ]
+                    },
+                    {
+                        text: "他的竞争对手以你的安全威胁他，他会：",
+                        options: [
+                            "A. 用更强大的科技手段让对方瞬间瓦解。",
+                            "B. 将你置于绝对安全的保护罩内，限制自由。",
+                            "C. 认为这是你的因果，交由你自己处理。",
+                            "D. 教你使用他开发的防御系统，让你拥有自保能力。"
+                        ]
+                    },
+                    {
+                        text: "（关键选择）他完成了'意识云端上传'的初步技术，邀请你与他一起成为首批'数字永生'的伴侣，脱离脆弱的肉体。你会：",
+                        options: [
+                            "A. 同意，视之为爱情与进化终极形式。",
+                            "B. 拒绝，坚信生命的意义在于真实的体验与消亡。",
+                            "C. 要求确保在数字世界仍能保持独立的个人意志。",
+                            "D. 提议先建立一个完全受你们控制的虚拟世界进行试验。"
+                        ]
+                    },
+                    {
+                        text: "最终，他向你展示了由他掌控的、近乎完美的数字未来蓝图，并问你：'愿意成为我的'唯一变量'，和我一起定义新世界吗？' 你会：",
+                        options: [
+                            "A. 站在他身边：'这是我的荣幸。'",
+                            "B. 摧毁他的核心服务器：'我不能让你定义所有人的未来。'",
+                            "C. 与他合作，但在系统中加入制衡他的'锁'。",
+                            "D. 离开，去创造属于你自己的、不被他掌控的未来。"
+                        ]
+                    },
+                    {
+                        text: "如果你们有了孩子，他希望用基因编辑和技术植入让孩子'赢在起点'。你会：",
+                        options: [
+                            "A. 完全支持，这是父母能给孩子最好的礼物。",
+                            "B. 坚决反对，让孩子自然成长。",
+                            "C. 同意增强身体健康和智力，但保留其情感发育的自然性。",
+                            "D. 要求孩子达到一定年龄后，自行选择是否接受增强。"
+                        ]
+                    }
+                ],
+                endings: [
+                    {
+                        name: "唯一变量",
+                        type: "绝对信任与共创",
+                        analysis: "你选择接入'同心'系统，成为了他冰冷逻辑世界里唯一的温暖变量。起初是巨大的不适与灵魂被窥探的恐慌，但渐渐地，你们达到了前所未有的默契。你能感受到他理性背后压抑的情感洪流，他能理解你感性之中蕴含的创造力量。你们的日常生活，是在实验室里通宵达旦，一个眼神便能传递复杂信息；是在世界各地的科技峰会上，你们作为黄金搭档震撼全场。他依然追求效率和掌控，但他的系统里，为你设置了最高的权限和无限的包容。他学会了'爱'这种非理性情感，并将其定义为'最高效的协同模式'。你们共同创造的新世界，既保留了他追求的秩序之美，也融入了你带来的人性光辉。你们是彼此唯一的伴侣，也是彼此唯一的'漏洞'与'补丁'。",
+                        daily: "你们的日常生活充满了科技感和默契。早晨，你们通过神经连接共享梦境；上午，你们在实验室进行新技术的研发；下午，你们参加全球科技峰会，展示最新的研究成果；晚上，你们在虚拟世界中创造属于你们的理想国度。周末，你们会断开所有连接，在现实世界中享受纯粹的二人时光。他依然追求效率和完美，但为你保留了情感和创造力的空间；你依然保持感性和直觉，但学会了用他的逻辑思维分析问题。你们的关系建立在相互理解和互补的基础上，既是爱人也是战友，在科技的道路上共同前行。",
+                        icon: "⚡"
+                    },
+                    {
+                        name: "独立宣言",
+                        type: "反抗与出走",
+                        analysis: "你无法接受被他彻底'定义'，无论是生活还是未来。你用他教给你的知识和能力，精心策划了一场反击。你在那个至关重要的发布会上，公开了他'同心'系统的潜在风险与伦理问题，一举击溃了他的计划。他看你的眼神，从震惊、愤怒，最终化为一种复杂的、带着一丝欣赏的绝望。你离开了他的帝国，利用这次事件带来的声望，开创了自己的事业。你的日常生活，是带领着自己的团队，在另一个方向上探索科技与人文的结合。你们成了业界公认的竞争对手，偶尔在会议上相遇，目光交汇间是电光石火的较量与一丝无法言说的怅惘。你向他证明了，你不是任何人的变量，你本身就是一道独立的方程式。",
+                        daily: "现在你的生活充满了自主和挑战。早晨，你在自己的公司醒来，查看最新的行业动态；上午，你与团队讨论产品设计，强调人性化和伦理考量；下午，你参加行业会议，发表对科技伦理的见解；晚上，你研究最新的技术趋势，寻找创新突破点。你的公司虽然规模不如顾北辰的帝国，但在科技伦理和人性化设计方面独树一帜。偶尔在行业峰会上遇到顾北辰，你们会礼貌地点头致意，但都知道彼此走上了不同的道路。你拥有了完全自主的人生，虽然道路艰难，但每一步都是自己的选择。",
+                        icon: "🚀"
+                    },
+                    {
+                        name: "锁与钥匙",
+                        type: "合作与制衡",
+                        analysis: "你没有完全接受或拒绝，而是选择与他博弈。你同意接入'同心'系统，但坚持加入一个由你控制的'制衡协议'——一把只有你能启动的'锁'。这个决定让他既恼怒又兴奋，他欣赏你的勇气和智慧。婚后，你们的日常生活充满了高级的智力对抗与合作。你们在'同心'系统中共同工作，效率惊人，但彼此都清楚那条不可逾越的底线。这种微妙的关系，反而形成了独特的张力。他会在你启动'锁'进行系统自检时，露出近乎宠溺的微笑，仿佛在欣赏自己最杰出的作品。你们的关系，是掌控与反掌控的动态平衡，是世界上最了解彼此的对手，也是最无法分割的伴侣。这种带着危险的平衡，让你们的关系始终保持活力与激情。",
+                        daily: "你们的日常生活充满了智力博弈和默契合作。早晨，你们通过'同心'系统共享当天的计划和想法；上午，你们在各自的领域工作，但会随时通过系统交流灵感；下午，你们可能会因为一个技术方案争论不休，但最终总能找到最优解；晚上，你们在系统中设置边界，进行'安全演习'，测试彼此的底线。周末，你们会完全断开连接，在现实世界中享受纯粹的二人时光。你们的关系建立在相互尊重和制衡的基础上，既是爱人也是对手，在科技的海洋中共同航行，但各自掌舵。",
+                        icon: "🔒"
+                    },
+                    {
+                        name: "系统冗余",
+                        type: "疏离与格式化",
+                        analysis: "你拒绝了他的终极邀请，但也未能有力反抗。你们的关系停留在表面。你依然是他的得力下属，或许还有一层暧昧的关系，但始终无法进入他的核心领域。他的'同心'系统最终完成，但他选择了独自接入。你的日常生活，是看着他越来越像一个完美的'神'，情感愈发稀薄。他给予你物质上的优待，但你们的心灵距离越来越远。最终，你成了他庞大系统里一个无关紧要的'冗余'，或者说，一个他懒得去格式化的、带着旧日记忆的碎片。你选择主动离开，他并未挽留。很多年后，你听说他的帝国更加庞大，他也更加不像一个'人'。你偶尔会想，如果当初选择了不同的路，结局是否会不一样。但这个假设，本身也成了无解的冗余数据。",
+                        daily: "现在你的生活平静但带着一丝遗憾。早晨，你在自己的公寓醒来，开始一天的工作；上午，你在公司处理日常事务，偶尔会听到关于顾北辰科技帝国的新闻；下午，你参加朋友聚会，谈论生活中的琐事；晚上，你独自回家，偶尔会想起那段充满科技奇迹但也令人窒息的时光。你知道顾北辰的帝国越来越强大，但他也越来越不像人类，更像一个完美的AI系统。你拥有自由和平静，但也永远失去了参与那个伟大实验的机会。你们像两个曾经相交的直线，朝着完全不同的方向延伸，再也不会有交集。",
+                        icon: "💾"
+                    }
+                ],
+                analysis: [
+                    "顾北辰的控制欲源于童年被父母忽视的经历，他通过控制环境来获得安全感。",
+                    "他的商业帝国是他证明自我价值的唯一方式，也是他对抗世界不确定性的堡垒。",
+                    "表面冷酷无情，实则内心极度脆弱，害怕被背叛和抛弃。",
+                    "只有真正走进他内心的人，才能看到他偶尔流露的脆弱和温柔。",
+                    "他的爱是扭曲的，但也是真实的，只是需要正确的方式去引导和回应。"
+                ]
+            },
+            lin: {
+                name: "林清羽",
+                icon: "💚",
+                color: "green",
+                description: "温柔毒药 - 绿茶属性·偏执学长",
+                questions: [
+                    {
+                        text: "初次见面，林清羽在图书馆帮你找到了急需的绝版文献，他笑容温和：'举手之劳。学妹专注的样子，让人不忍打扰。'你会：",
+                        options: [
+                            "A. 真诚道谢，并夸赞他学识渊博。",
+                            "B. 礼貌感谢，但下意识保持一步距离。",
+                            "C. 开玩笑：'学长对谁都这么温柔吗？'",
+                            "D. 反问：'学长通常怎么打扰不注意的学妹？'"
+                        ]
+                    },
+                    {
+                        text: "你被卷入一场学术风波，林清羽不动声色地引导舆论，让真正的始作俑者成为众矢之的。事后他轻描淡写：'清者自清。'你会：",
+                        options: [
+                            "A. 无比感激，视他为黑暗中的灯塔。",
+                            "B. 佩服他的手段，但也感到一丝寒意。",
+                            "C. 觉得他心机深沉，主动疏远。",
+                            "D. 直接问：'学长，是你做的吗？'"
+                        ]
+                    },
+                    {
+                        text: "他'无意'向你透露顾北辰的某个商业弱点，并叹息：'顾总能力虽强，但过刚易折。'你会：",
+                        options: [
+                            "A. 相信他是出于善意提醒。",
+                            "B. 意识到他在挑拨，但不点破。",
+                            "C. 将这个信息作为筹码，去试探顾北辰。",
+                            "D. 利用这个信息，为自己争取利益。"
+                        ]
+                    },
+                    {
+                        text: "他送你一枚古朴的玉佩，说能'保平安'。你偶然发现这玉佩能让他的人在你遇到'危险'时第一时间出现。你会：",
+                        options: [
+                            "A. 感动于他周全的保护，一直佩戴。",
+                            "B. 感到被监视，将玉佩小心收好不再佩戴。",
+                            "C. 当着他的面，将玉佩放入锦盒：'心意比玉佩更重。'",
+                            "D. 仿制一枚假的佩戴，真的用于研究其运作方式。"
+                        ]
+                    },
+                    {
+                        text: "林清羽的政敌家族向你抛出橄榄枝，他知晓后，只是为你续上一杯热茶：'树欲静而风不止。你的选择，我尊重。'你会：",
+                        options: [
+                            "A. 立刻表态，坚决站在他这边。",
+                            "B. 接受对方邀请，想看他如何应对。",
+                            "C. 向他请教，自己该如何选择。",
+                            "D. 独立分析，做出对自己最有利的决定。"
+                        ]
+                    },
+                    {
+                        text: "你误入他从不对外开放的书房，发现墙上挂着错综复杂的关系脉络图。他出现在门口，你会：",
+                        options: [
+                            "A. 立刻道歉，表示自己什么都没看到。",
+                            "B. 镇定地指着图：'学长，这里似乎连错了。'",
+                            "C. 感到恐惧，找借口迅速离开。",
+                            "D. 反问：'学长，我的位置在哪里？'"
+                        ]
+                    },
+                    {
+                        text: "他为你铺好了通往某个关键位置的捷径，但需要你疏远一位真心待你的朋友。他说：'世事难两全，端看如何取舍。'你会：",
+                        options: [
+                            "A. 听从他的安排，认为他看得更远。",
+                            "B. 拒绝，并指责他干涉你的交友自由。",
+                            "C. 表面疏远朋友，私下维持联系。",
+                            "D. 寻找一个既能上位又不伤害朋友的方法。"
+                        ]
+                    },
+                    {
+                        text: "顾北辰与苏婉柔爆发激烈冲突，林清羽在幕后推动了这一切。他邀你品茶观戏，你会：",
+                        options: [
+                            "A. 感到不安，劝他以和为贵。",
+                            "B. 静坐旁观，欣赏他的运筹帷幄。",
+                            "C. 借机下场，为自己捞取好处。",
+                            "D. 记录下他的手段，作为学习或防备。"
+                        ]
+                    },
+                    {
+                        text: "他生病发烧，意识模糊时紧紧握着你的手，流露罕见的脆弱。醒来后，他会：",
+                        options: [
+                            "A. 绝口不提，待你比以往更温柔。",
+                            "B. 坦言那一刻很安心，谢谢你。",
+                            "C. 感到尴尬，用更疏离的态度掩饰。",
+                            "D. 以此为由，希望你搬来照顾他。"
+                        ]
+                    },
+                    {
+                        text: "你发现他暗中帮你解决了家族的一个大麻烦，却从未提及。你会：",
+                        options: [
+                            "A. 主动询问，并表达深深的感激。",
+                            "B. 装作不知，但用其他方式回报。",
+                            "C. 感到负担，觉得欠了难以偿还的人情。",
+                            "D. 调查他解决麻烦的手段，评估其风险。"
+                        ]
+                    },
+                    {
+                        text: "他带你参加一场高级别私人拍卖会，为你拍下一件你多看了两眼的古董。他说：'美物配慧心。'你会：",
+                        options: [
+                            "A. 欣然接受，视为定情信物。",
+                            "B. 坚持按市价将钱还给他。",
+                            "C. 表示太贵重，婉言谢绝。",
+                            "D. 收下，但回赠一件等值的、他需要的礼物。"
+                        ]
+                    },
+                    {
+                        text: "有人在你面前诋毁林清羽伪善，你会：",
+                        options: [
+                            "A. 立刻出言反驳，维护他的声誉。",
+                            "B. 表面不动声色，事后调查诋毁者的动机。",
+                            "C. 将此事原原本本告诉他，让他定夺。",
+                            "D. 利用此事，去试探他对你的信任。"
+                        ]
+                    },
+                    {
+                        text: "他希望你进入他家族的基金会，从一个看似不起眼的位置开始。你会：",
+                        options: [
+                            "A. 接受，相信他的安排是最好的。",
+                            "B. 拒绝，希望靠自己的能力闯荡。",
+                            "C. 接受，但暗中培植自己的势力。",
+                            "D. 与他谈判，要求一个更高的起点。"
+                        ]
+                    },
+                    {
+                        text: "你发现他利用你的某个社交关系达成了他的目的，但并未损害你的利益。你会：",
+                        options: [
+                            "A. 不在意，觉得能帮到他就好。",
+                            "B. 找他沟通，希望下次能提前告知。",
+                            "C. 感到被利用，收回这部分社交资源。",
+                            "D. 默许，但将此事记下，作为未来谈判的筹码。"
+                        ]
+                    },
+                    {
+                        text: "在一场危机中，他选择牺牲一个次要盟友来保全大局（包括你）。你会：",
+                        options: [
+                            "A. 理解并支持他的决定，成大事必有牺牲。",
+                            "B. 同情那个盟友，但知道无法改变什么。",
+                            "C. 质疑他的冷血，重新评估你们的关系。",
+                            "D. 设法给那个盟友一些补偿，以求心安。"
+                        ]
+                    },
+                    {
+                        text: "他向你展示他一手建立的情报网络，并说：'现在，你看到了我最深的秘密。'你会：",
+                        options: [
+                            "A. 承诺会用生命守护这个秘密。",
+                            "B. 询问自己在他网络中的角色。",
+                            "C. 感到压力，担心无法承担这份信任。",
+                            "D. 分享一个自己等同重要的秘密作为交换。"
+                        ]
+                    },
+                    {
+                        text: "他的家族对你进行背景调查，触及你的隐私。他知道后，会：",
+                        options: [
+                            "A. 向你道歉，并严厉约束家族成员。",
+                            "B. 认为这是必要程序，请你理解。",
+                            "C. 帮你伪造一份更'完美'的背景。",
+                            "D. 借此机会，向你透露一些他家族的秘密以示公平。"
+                        ]
+                    },
+                    {
+                        text: "（关键选择）他向你求婚，承诺给你最稳固的庇护和无人能及的幕后权力，但你需要签署一份涉及全面忠诚的协议。你会：",
+                        options: [
+                            "A. 签署，将未来完全交托于他。",
+                            "B. 拒绝，爱情不应由协议束缚。",
+                            "C. 对协议条款进行逐条谈判。",
+                            "D. 拖延，要求给予充分考虑的时间。"
+                        ]
+                    },
+                    {
+                        text: "最终，当他的所有布局浮出水面，你发现自己也早已是他棋盘中重要的一子。他执起你的手，问：'现在，你愿意和我一起，执掌这盘棋吗？' 你会：",
+                        options: [
+                            "A. 反握住他的手：'我的荣幸，学长。'",
+                            "B. 甩开他的手：'你让我感到可怕。'",
+                            "C. 苦笑道：'我似乎从未真正有过选择。'",
+                            "D. 拿出你暗中准备的、能反制他的筹码：'现在，棋手该换人了。'"
+                        ]
+                    },
+                    {
+                        text: "婚后，他希望你们的孩子未来从政，延续家族荣耀，但你希望孩子自由发展。你会：",
+                        options: [
+                            "A. 同意他的规划，认为这是对孩子最好的安排。",
+                            "B. 坚决反对，为孩子争取选择的权利。",
+                            "C. 表面同意，私下给孩子灌输不同的价值观。",
+                            "D. 与他共同制定一个更包容、循序渐进的培养方案。"
+                        ]
+                    }
+                ],
+                endings: [
+                    {
+                        name: "青瓷共饮",
+                        type: "沉沦与共谋",
+                        analysis: "你选择与他共同执棋。婚礼低调而奢华，到场的皆是真正掌控这座城市命脉的人物。婚后，你的日常生活并非柴米油盐，而是在茶香氤氲中，与他一同分析各方情报，布下一局局精妙的棋。他会温柔地教你如何识人、如何借势、如何在不露锋芒中达到目的。你们是世人眼中的神仙眷侣，更是彼此最信任的同盟。他会在你第一次独立完成一次漂亮的反击后，于月光下为你戴上象征核心权力的家族戒指，眼神是毫不掩饰的欣赏与占有：'我早知道，你与我是一类人。' 你们的关系，建立在对等的智慧与绝对的信任之上，如同共饮一杯毒酒，却也甘之如饴。在这盘权力的游戏中，你们是彼此唯一的执棋者，也是对方唯一的解药。",
+                        daily: "你们的日常生活充满了智谋和默契。早晨，你们在茶室品茗，讨论当天的局势变化；上午，你们各自处理公务，但会随时交流重要信息；下午，你们参加各种社交活动，在谈笑风生中收集情报；晚上，你们在书房复盘当天的得失，策划下一步的行动。周末，你们会去郊区的别院，那里没有外人，你们可以卸下伪装，坦诚相对。你们的关系建立在相互理解和共同目标上，既是爱人也是战友，在权力的迷宫中并肩前行。",
+                        icon: "♟️"
+                    },
+                    {
+                        name: "金丝雀的觉悟",
+                        type: "清醒与逃离",
+                        analysis: "你看透了他温柔背后的控制欲，在最后关头选择了拒绝。你动用所有智慧和人脉，设计了一场完美的'失踪'，彻底消失在他的世界里。起初，他动用所有力量疯狂寻找，却如同撞上一团迷雾。多年后，你在一个他势力未及的南方小城，开了一家小小的书店，生活平静。你从新闻上看到他已身居高位，笑容依旧温润，只是眼底深处多了一丝无人能懂的寂寥。他或许知道你在这里，但那份骄傲让他不愿再来打扰。你的日常生活，是与书籍和阳光为伴，虽然失去了翻云覆雨的快感，却拥有了灵魂的安宁。你偶尔会想起他泡的茶，但那味道，已如同前世的记忆。",
+                        daily: "现在你的生活简单而宁静。早晨，你在自己的书店醒来，为自己准备简单的早餐；上午，你整理书架，接待偶尔光顾的客人；下午，你坐在窗边看书，阳光透过玻璃洒在书页上；晚上，你与邻居喝茶聊天，谈论生活中的琐事。经济上不算富裕，但足够维持简单的生活；社交圈不大，但都是真诚相待的朋友。你拥有了内心的平静和自由，虽然偶尔会想起那段充满刺激的时光，但那更像是一场遥远的梦。",
+                        icon: "📚"
+                    },
+                    {
+                        name: "反客为主",
+                        type: "反杀与掌控",
+                        analysis: "你在他向你摊牌的最后时刻，亮出了你暗中收集的所有底牌——包括他家族的一些不为人知的秘密，以及他布局中的几个致命漏洞。你看着他从未有过的错愕表情，微笑着将他曾教你的话还给他：'学长，棋差一着，满盘皆输。' 你并没有摧毁他，而是以此为契机，重新谈判，建立了新的合作关系。婚后，表面他仍是运筹帷幄的军师，但核心决策必须经过你的同意。你的日常生活，你们的关系更像一场持续的心理博弈，充满了试探与征服。他看你的眼神，从欣赏变成了带着忌惮的狂热。这种关系危险而刺激，如同在悬崖边共舞，但你们乐在其中，因为你们都明白，只有对方才配做自己一生的对手与伴侣。",
+                        daily: "你们的日常生活充满了智谋博弈和权力平衡。早晨，你们在早餐桌上讨论当天的计划，各自试探对方的底线；上午，你们各自处理公务，但会随时关注对方的动向；下午，你们参加社交活动，在众人面前表演恩爱夫妻，实则各自收集情报；晚上，你们在书房谈判，为各自的利益据理力争。周末，你们会去郊外的别墅，那里是你们暂时休战的地方。你们的关系建立在相互制衡和尊重的基础上，既是爱人也是对手，在权力的游戏中共同成长。",
+                        icon: "⚔️"
+                    },
+                    {
+                        name: "镜花水月",
+                        type: "无奈与疏离",
+                        analysis: "你接受了他的求婚，却无法完全融入他的世界。你成了林太太，出席各种场合，配合他扮演恩爱夫妻，但内心深处始终隔着一层。他给了你优渥的生活和表面的尊重，却不再与你分享核心的秘密。你的日常生活，是精致而空洞的，像生活在一个美丽的琉璃罩子里。他依然温柔，但那温柔里带着一丝不易察觉的失望。你们有了孩子，你将大部分情感寄托在孩子身上。他会在深夜，看着你和孩子安静的睡颜，流露出复杂的情绪，但第二天太阳升起，他依旧是那个算无遗策的林清羽。你们就这样相伴一生，举案齐眉，相敬如宾，却永远无法触及彼此内心最深处。那杯名为爱情的茶，从一开始，就未能真正沏开。",
+                        daily: "你们的日常生活表面光鲜但内心疏离。早晨，你们在豪华的卧室醒来，各自准备一天的事务；上午，你去参加各种名流活动，扮演完美的林太太；下午，你在家中陪伴孩子，将全部情感倾注在孩子身上；晚上，你们共进晚餐，谈论一些无关紧要的话题。他依然温柔体贴，但你们都知道那只是表面的礼貌；你依然扮演着完美的妻子，但内心早已麻木。你们像两个住在同一屋檐下的陌生人，各自守着内心的孤岛，永远无法真正靠近。",
+                        icon: "💔"
+                    }
+                ],
+                analysis: [
+                    "林清羽的偏执源于童年被家族忽视的经历，他渴望通过完全掌控来获得安全感。",
+                    "他的'绿茶'手段是他生存的方式，也是在复杂家族环境中保护自己的策略。",
+                    "表面温柔体贴，实则内心极度缺乏安全感，害怕被抛弃和背叛。",
+                    "他的情感操控往往是无意识的，是他从小到大习得的与人相处的方式。",
+                    "只有真正理解他内心创伤的人，才能帮助他建立健康的情感模式。"
+                ]
+            },
+            su: {
+                name: "苏婉柔",
+                icon: "💗",
+                color: "pink",
+                description: "荆棘王冠 - 野心家·隐藏女王",
+                questions: [
+                    {
+                        text: "搬家第一天，苏婉柔'不小心'将汤洒在走廊弄脏你的鞋，她眼圈泛红说要赔偿。你会：",
+                        options: [
+                            "A. 大度摆手：'没关系，一双鞋子而已。'",
+                            "B. 坚持原则：'请按市价赔偿。'",
+                            "C. 趁机拉近关系：'赔就不用了，下次请我吃饭就好？'",
+                            "D. 审视她的表情：'姐姐是故意的吗？'"
+                        ]
+                    },
+                    {
+                        text: "她送你亲手做的点心，精致得不输名店，并感叹：'真羡慕你们这些家境好的女孩。'你会：",
+                        options: [
+                            "A. 真诚赞美：'谁娶了姐姐才是福气！'",
+                            "B. 同情安慰：'姐姐靠自己也很棒！'",
+                            "C. 开玩笑：'那得是什么样的人物才配得上？'",
+                            "D. 淡淡回应：'用心做的，总是好的。'"
+                        ]
+                    },
+                    {
+                        text: "你在晚宴上看到她被富家女嘲讽却低头忍耐。你会：",
+                        options: [
+                            "A. 立刻上前挡在她面前回怼。",
+                            "B. 事后安慰她不必在意那种人。",
+                            "C. 冷眼旁观，觉得这是她选的路。",
+                            "D. 注意到她紧握又松开的拳头。"
+                        ]
+                    },
+                    {
+                        text: "她向你请教如何与林清羽/顾北辰自然相处，自称'配不上他们'。你会：",
+                        options: [
+                            "A. 热心支招，鼓励她勇敢追爱。",
+                            "B. 反问：'姐姐喜欢的是人，还是他们代表的東西？'",
+                            "C. 委婉提醒：'那个圈子很复杂，要小心。'",
+                            "D. 表示无能为力：'感情的事我不懂。'"
+                        ]
+                    },
+                    {
+                        text: "你发现她看的书是《货币战争》却用言情小说封面掩饰。你会：",
+                        options: [
+                            "A. 笑着帮她掩饰：'我懂，提升内涵嘛。'",
+                            "B. 直接戳穿：'这类书可不像是装样子看的。'",
+                            "C. 表示理解：'人都有不想被人知的一面。'",
+                            "D. 认真说：'看这些书的你更有魅力。'"
+                        ]
+                    },
+                    {
+                        text: "她透露知道林清羽家族的'小秘密'，暗示可以告诉你但需要你帮忙。你会：",
+                        options: [
+                            "A. 严词拒绝：'这样不好。'",
+                            "B. 好奇追问：'什么忙？什么秘密？'",
+                            "C. 警告她：'玩火会自焚。'",
+                            "D. 表示没兴趣并让她停止。"
+                        ]
+                    },
+                    {
+                        text: "你发现她利用你无意中透露的信息，成功离间了顾北辰的合作伙伴。对质时她会：",
+                        options: [
+                            "A. 坦然承认：'信息就是金钱，谢谢盟友。'",
+                            "B. 装傻充愣，哭诉你误会她。",
+                            "C. 反过来威胁你别说出去。",
+                            "D. 分享部分利益，拉你入伙。"
+                        ]
+                    },
+                    {
+                        text: "她在名流派对周旋后，躲在洗手间计算名片价值。你会：",
+                        options: [
+                            "A. 心酸，觉得她活得太累。",
+                            "B. 佩服她的目标感和执行力。",
+                            "C. 觉得可怕，社交都是计算。",
+                            "D. 递纸巾：'擦擦手吧，姐姐。'"
+                        ]
+                    },
+                    {
+                        text: "你知道她其实讨厌小孩却在慈善晚宴表演'喜欢'。你会：",
+                        options: [
+                            "A. 替她保密，觉得这样更真实。",
+                            "B. 拿来开玩笑试探她反应。",
+                            "C. 觉得虚伪，渐渐疏远。",
+                            "D. 在她表演时默默帮她解围。"
+                        ]
+                    },
+                    {
+                        text: "她成功让林清羽和顾北辰都对她有好感，问你该选谁。你会：",
+                        options: [
+                            "A. 分析利弊，帮她权衡。",
+                            "B. 反问：'想当林太太、顾太太，还是苏总？'",
+                            "C. 略带醋意：'姐姐心里只有他们吗？'",
+                            "D. 真诚说：'选你真正喜欢的。'"
+                        ]
+                    },
+                    {
+                        text: "顾北辰发现她'养鱼'要封杀她，她会：",
+                        options: [
+                            "A. 拿出早准备好的顾氏把柄反制。",
+                            "B. 找林清羽利用家族影响力施压。",
+                            "C. 在你面前崩溃引你去求情。",
+                            "D. 与顾北辰谈判展示价值化敌为友。"
+                        ]
+                    },
+                    {
+                        text: "你发现她暗中收购前景很好的初创公司股份。你会：",
+                        options: [
+                            "A. 装作不知但内心震撼。",
+                            "B. 想办法跟投喝汤。",
+                            "C. 问她是否需要资金帮助。",
+                            "D. 提醒她注意风险。"
+                        ]
+                    },
+                    {
+                        text: "她为获取资源设计让竞争对手身败名裂。解释时会说：",
+                        options: [
+                            "A. '他挡了我的路，仅此而已。'",
+                            "B. '我不这么做哭的就是我。'",
+                            "C. '觉得我狠毒就离远点。'",
+                            "D. 不解释，用结果说话。"
+                        ]
+                    },
+                    {
+                        text: "你遇到家族企业濒临破产的麻烦，她会：",
+                        options: [
+                            "A. 动用隐藏资源在幕后帮你摆平。",
+                            "B. 提出交易条件帮你但需付出代价。",
+                            "C. 陪你倾诉但明确表示无能为力。",
+                            "D. 分析局势指出艰难的生路。"
+                        ]
+                    },
+                    {
+                        text: "月光下她卸下伪装问：'如果我打造了王国，你愿意来当我的王后吗？'你会：",
+                        options: [
+                            "A. 反问：'是邀请还是命令？'",
+                            "B. 握住她的手：'我想当建筑师和你一起建造。'",
+                            "C. 避开话题：'姐姐你喝醉了。'",
+                            "D. 直接回答：'愿意。'"
+                        ]
+                    },
+                    {
+                        text: "（关键选择）她的计划需要牺牲林清羽的重大利益。她说：'你可以阻止我，但我的王国会推迟十年。'你会：",
+                        options: [
+                            "A. 阻止她：'不能看你变成魔鬼。'",
+                            "B. 不阻止但要求是最后一次伤害无辜。",
+                            "C. 帮她找两全其美或伤害更小的方案。",
+                            "D. 沉默看她动手，事后抱住她：'我还在。'"
+                        ]
+                    },
+                    {
+                        text: "顾北辰和林清羽联手要让她消失。你会：",
+                        options: [
+                            "A. 站在她身前宣告：'她是我的。'",
+                            "B. 动用自己力量资源帮她对抗。",
+                            "C. 拿她收集的黑料去谈判制衡。",
+                            "D. 劝她收手跟你离开。"
+                        ]
+                    },
+                    {
+                        text: "决战前夜她给你足够一生无忧的财产和机票：'走吧，赢了找你，输了够你忘了我。'你会：",
+                        options: [
+                            "A. 撕掉机票：'我和你共进退。'",
+                            "B. 收下但不走，暗中等待。",
+                            "C. 把她打晕强行带走。",
+                            "D. 接受并真的离开。"
+                        ]
+                    },
+                    {
+                        text: "胜利后她俯瞰王国，你会说：",
+                        options: [
+                            "A. '恭喜你，女王陛下。'",
+                            "B. '现在你终于可以做自己了。'",
+                            "C. '还冷吗？我在这里。'",
+                            "D. 从身后抱住她不语。"
+                        ]
+                    },
+                    {
+                        text: "（结局导向）成为女王的她送你'礼物'是：",
+                        options: [
+                            "A. 商业帝国一半股份，共享江山。",
+                            "B. 盛大婚礼，向全世界宣告关系。",
+                            "C. 只有你们无需伪装的假期。",
+                            "D. 属于你们未来的商业蓝图。"
+                        ]
+                    }
+                ],
+                endings: [
+                    {
+                        name: "权力王座上的共舞",
+                        type: "并肩作战结局",
+                        analysis: "你选择与她并肩作战，最终赢得了天下。婚后，你们是事业上最默契的伙伴，共同出席董事会，在书房为决策争论到深夜。她的杀伐果断依旧，但在你面前会卸下盔甲，甚至偶尔撒娇。清晨，她为你系领带的手法依旧生疏，却坚持不让佣人代劳；深夜归来，无论多晚总有一盏灯和温热的醒酒汤等你。她将帝国一半股权真正过户到你名下，这是她表达'爱'的、最实际的方式。你们的关系始于算计，终于灵魂的共鸣与并肩的王座。当她疲惫地将额头抵在你肩上，你知道，这位女王唯一的休战书，只签给了你。",
+                        daily: "你们的日常生活充满了挑战与成就。早晨，你们一起用早餐，讨论当天的商业策略；上午，你们各自处理公司事务，但会频繁沟通协调；下午，你们可能一起会见重要客户或参加商业谈判；晚上，如果不参加商业晚宴，你们会在家中书房继续工作，或者放松看一部电影。周末，你们可能会去打高尔夫，这既是休闲也是拓展人脉的方式。你们的关系建立在相互尊重和共同目标上，既是爱人也是战友，在商场上所向披靡，在生活中相互依靠。",
+                        icon: "👑"
+                    },
+                    {
+                        name: "被她吞噬的星光",
+                        type: "被牺牲结局",
+                        analysis: "你试图用爱感化她，希望她'放下屠刀'，最终失败了。在关键抉择中，你成了她可以舍弃的棋子。心灰意冷离开后，听说她成功登顶，站在无人之巅。她的日常生活被权力与算计填满，身边围绕着谄媚者，却再无一人能让她偶尔失神。某个深夜，她独自在空旷的办公室里，指尖划过手机里一张偷拍你的、早已模糊的睡颜，随即锁屏，眼神恢复冰冷。你失去了所有，也彻底明白：她是一把淬了剧毒的刀，靠近她，要么一同染血，要么成为她刀下的亡魂。那点曾因你而亮的微光，终究被更大的野心吞噬。",
+                        daily: "现在她的生活充满了权力和成就，但也充满了孤独。早晨，她在豪华公寓醒来，独自用早餐看财经新闻；上午，她在公司主持会议，决策影响着成千上万的员工；下午，她参加各种商业活动，接受媒体的追捧；晚上，她出席高级晚宴，周旋于各界名流之间。回家后，她独自站在落地窗前，俯瞰城市的灯火，偶尔会想起你，但那点温情很快被第二天的商业计划取代。她得到了梦想的一切，却失去了唯一真心待她的人，在权力的巅峰上独自品味着孤独的滋味。",
+                        icon: "💔"
+                    },
+                    {
+                        name: "冰封王座旁的唯一暖色",
+                        type: "特殊例外结局",
+                        analysis: "你既未改变她，也未被她同化，而是以自身强大成为了她世界的'例外'。她依然狠辣，但会把后背交给你，在算计全世界时，独独为你留一份真实的温情。你们的日常生活，是在刀光剑影的商战后，回到只属于你们的家。那里没有算计，她会穿着你的旧T恤，素颜蜷在沙发里看无聊综艺，抱怨你做饭盐又放多了。她的核心未变，但你成了她坚不可摧的铠甲下，唯一柔软的缝隙。当她在记者包围中下意识寻找你的身影，并与你视线交汇瞬间微微放松的肩膀，你知道，你拥有了这位女王陛下，最不设防的内心。",
+                        daily: "你们的日常生活有一种奇特的平衡。工作日，她是那个叱咤商场的女强人，你是她最信任的顾问和支持者；下班后，她卸下盔甲，变成一个需要关爱的小女人。早晨，你们可能因为一个商业决策在早餐桌上争论；晚上，她却会靠在你怀里看肥皂剧。周末，你们可能会远离商业圈子，去郊外度过只属于两人的时光。在公众面前，她是那个不可一世的女王；在私下里，她只对你展现脆弱和依赖。你们的关系建立在对彼此本质的深刻理解和接纳上，既现实又浪漫。",
+                        icon: "💖"
+                    },
+                    {
+                        name: "分道扬镳，各自为王",
+                        type: "独立结局",
+                        analysis: "你无法接受她的方式，在最终时刻选择了离开。你们就此决裂，她没有挽留。多年后，你们都在各自领域登顶。她的日常更加冷酷，你的生活则平静充实。在一次顶尖峰会上，你们遥遥相望。她举杯致意，眼神里没有恨，只有对值得尊敬的对手的认可，以及一丝极淡的怅然。你们走上了不同的路，都成为了王者。只是她的王座由荆棘铸就，永恒孤寂；而你的，铺满了阳光与自由。那场始于铂悦公寓的相遇，最终成了两条平行线的短暂交错，美丽，却再无交集。",
+                        daily: "现在你们各自过着精彩的生活。她在商界继续她的征途，早晨与全球分公司开视频会议，上午处理跨国并购案，下午与政要会面，晚上参加国际商业论坛。而你，在你自己选择的领域也取得了不俗成就，可能是艺术界的新星，也可能是科技界的创新者。你们的日常生活没有交集，但都在自己的领域发光发热。偶尔在商业杂志上看到对方的照片，会微微一笑，想起曾经有过的短暂交集。你们像两条平行线，再也不会相交，但都在自己的轨道上运行得很好。",
+                        icon: "👑"
+                    }
+                ],
+                analysis: [
+                    "苏婉柔的野心源于童年贫困的经历，她深知没有权力的脆弱和无力。",
+                    "她的伪装是她生存的武器，也是在男性主导的商界中保护自己的方式。",
+                    "表面柔弱无助，实则内心坚韧强大，目标明确且执行力惊人。",
+                    "她的算计和手段不是天性，而是在残酷现实中学会的生存技能。",
+                    "只有真正理解她奋斗历程的人，才能看透她坚硬外壳下的柔软内心。"
+                ]
+            },
+            shen: {
+                name: "沈墨阳",
+                icon: "💛",
+                color: "yellow",
+                description: "向阳而生 - 开朗阳光·治愈艺术家",
+                questions: [
+                    {
+                        text: "你被顾北辰当众批评后躲在楼梯间难过，沈墨阳拿着温热的咖啡出现：'看，晚霞。'你会：",
+                        options: [
+                            "A. 接过咖啡，被他逗笑。",
+                            "B. 礼貌拒绝，想一个人静静。",
+                            "C. 向他倾诉委屈。",
+                            "D. 问：'你怎么知道我在这？'"
+                        ]
+                    },
+                    {
+                        text: "你因林清羽的算计心累时，他带着金毛犬邀请你散步。你会：",
+                        options: [
+                            "A. 和狗狗玩耍，心情好转。",
+                            "B. 勉强笑笑，还是拒绝。",
+                            "C. 问他：'人为什么不能简单点？'",
+                            "D. 接过狗绳并肩而行。"
+                        ]
+                    },
+                    {
+                        text: "你被苏婉柔利用后，他在天台邀你看流星雨：'把晦气喊出来。'你会：",
+                        options: [
+                            "A. 跑过去一起看流星。",
+                            "B. 摇头觉得幼稚。",
+                            "C. 苦涩说：'喊出来有什么用？'",
+                            "D. 帮他调整望远镜。"
+                        ]
+                    },
+                    {
+                        text: "他工作室里有很多你的抓拍侧影，他挠头道歉：'觉得你像一幅画。'你会：",
+                        options: [
+                            "A. 脸红，感到被珍视。",
+                            "B. 不适，觉得像被监控。",
+                            "C. 欣赏照片赞叹技术。",
+                            "D. 问：'为什么是我？'"
+                        ]
+                    },
+                    {
+                        text: "他知道你周旋于三人间，说：'我的肩膀和世界随时为你敞开。'你会：",
+                        options: [
+                            "A. 感动地靠在他肩上。",
+                            "B. 告诉他：'你和他们不一样，别卷进来。'",
+                            "C. 苦笑：'你的世界太干净，我不配。'",
+                            "D. 问：'你的世界什么样？'"
+                        ]
+                    },
+                    {
+                        text: "星空下他轻轻吻了你。你会：",
+                        options: [
+                            "A. 回应这个吻。",
+                            "B. 推开他说'太快了'。",
+                            "C. 问：'你是认真的吗？'",
+                            "D. 之后刻意躲着他。"
+                        ]
+                    },
+                    {
+                        text: "他被顾/林/苏羞辱后，会：",
+                        options: [
+                            "A. 不卑不亢回应：'我的价值不需财富衡量。'",
+                            "B. 拉住想出头的你摇头说'没必要'。",
+                            "C. 短暂失落但很快振作。",
+                            "D. 更努力工作想证明自己。"
+                        ]
+                    },
+                    {
+                        text: "你因其他攻略对象爽了重要约会。你会：",
+                        options: [
+                            "A. 提前诚恳道歉并努力弥补。",
+                            "B. 事后解释找借口。",
+                            "C. 害怕他生气选择隐瞒。",
+                            "D. 觉得他该理解不予解释。"
+                        ]
+                    },
+                    {
+                        text: "他得到国外长期摄影机会，希望你同去。你会：",
+                        options: [
+                            "A. 毫不犹豫答应。",
+                            "B. 犹豫需要考虑。",
+                            "C. 拒绝无法放弃现在生活。",
+                            "D. 鼓励他去并表示会等。"
+                        ]
+                    },
+                    {
+                        text: "（关键选择）三人同时施压让你崩溃，他伸出手：'现在跟我走吗？就我们两个。'你会：",
+                        options: [
+                            "A. 毫不犹豫抓住手：'走！'",
+                            "B. 犹豫放不下羁绊。",
+                            "C. 拒绝认为是不负责逃避。",
+                            "D. 让他给时间处理。"
+                        ]
+                    },
+                    {
+                        text: "选择跟他走，在机场被追来挽留/威胁，他会：",
+                        options: [
+                            "A. 紧握你手对来人说：'她选择了我。'",
+                            "B. 看着你：'最后选择权在你。'",
+                            "C. 与来人对峙甚至冲突。",
+                            "D. 拉你跑无视那些人。"
+                        ]
+                    },
+                    {
+                        text: "在一起后第一个生日，他会：",
+                        options: [
+                            "A. 做笨拙但充满心意的手工礼物。",
+                            "B. 带你看想看的自然奇观。",
+                            "C. 召集新朋友办热闹派对。",
+                            "D. 安静陪你做喜欢的事一整天。"
+                        ]
+                    },
+                    {
+                        text: "你们会因什么小事吵架？",
+                        options: [
+                            "A. 他过于随性忘了交水电费。",
+                            "B. 你偶尔查看'过去'的新闻。",
+                            "C. 对未来规划分歧（定居vs流浪）。",
+                            "D. 他过于阳光不懂你内心阴暗。"
+                        ]
+                    },
+                    {
+                        text: "吵架后他会如何和好？",
+                        options: [
+                            "A. 做一桌你爱吃的菜可怜巴巴看你。",
+                            "B. 写长信塞门缝。",
+                            "C. 直接抱住说'我错了别不理我'。",
+                            "D. 带你去兜风在风景中自然和好。"
+                        ]
+                    },
+                    {
+                        text: "遇到经济困难时，他会：",
+                        options: [
+                            "A. 更努力接活同时保持乐观。",
+                            "B. 短暂沮丧但在你鼓励下振作。",
+                            "C. 考虑放弃梦想找稳定工作。",
+                            "D. 坚信困难是暂时鼓励一起坚持。"
+                        ]
+                    },
+                    {
+                        text: "他家人觉得你背景复杂不认可。他会：",
+                        options: [
+                            "A. 坚决站你这边努力说服家人。",
+                            "B. 带你离开减少联系。",
+                            "C. 希望你努力赢得家人喜欢。",
+                            "D. 痛苦夹在中间偶尔犹豫。"
+                        ]
+                    },
+                    {
+                        text: "在平凡时刻（如一起做饭）感到幸福，你会说：",
+                        options: [
+                            "A. '谢谢你带我离开。'",
+                            "B. '这就是我想要的生活。'",
+                            "C. 从身后抱住他默默感受。",
+                            "D. '我们一直这样下去好不好？'"
+                        ]
+                    },
+                    {
+                        text: "如果有孩子，他的教育理念是：",
+                        options: [
+                            "A. 放任自由快乐成长像他一样。",
+                            "B. 希望综合你们优点有坚韧有阳光。",
+                            "C. 笨拙但努力学做好爸爸。",
+                            "D. 带孩子'流浪'增长见识。"
+                        ]
+                    },
+                    {
+                        text: "多年后回顾'铂悦府'经历，你们视为：",
+                        options: [
+                            "A. 一场噩梦，彼此是救赎。",
+                            "B. 人生历练让更懂珍惜彼此。",
+                            "C. 不愿多提珍惜当下。",
+                            "D. 调侃那是'抢'到你的地方。"
+                        ]
+                    },
+                    {
+                        text: "（结局导向）沈墨阳对你最终意味着：",
+                        options: [
+                            "A. 救赎。 (光)",
+                            "B. 归宿。 (家)",
+                            "C. 爱情最本真的样子。 (爱)",
+                            "D. 另一个更好的自己。 (我)"
+                        ]
+                    }
+                ],
+                endings: [
+                    {
+                        name: "向阳而生",
+                        type: "唯一HE",
+                        analysis: "你抓住了他的手，离开了那座冰冷的城市。你们的日常生活，是在东南亚小岛醒来听着海浪声工作，是在北欧极光下相拥，是在某个小镇租房子度过宁静时光。他拍照，你写作，记录沿途风景与故事。并不富裕，但内心充盈。孩子在路上长大，拥有自由心灵。关于过去都成了模糊往事。你躺在他腿上星空下，觉得这才是生活本该样子。他实现了承诺，给了你充满阳光、爱与自由的世界。那缕阳光，最终温暖了你曾被冰封的心。",
+                        daily: "你们的日常生活简单而充实。早晨，你们在租住的小屋醒来，他为你做早餐；上午，他在户外拍摄，你在咖啡馆写作；下午，你们可能会去探索当地的风土人情，或者只是懒散地躺在吊床上看书；晚上，你们一起做饭，分享一天的见闻。你们的家可能在海边，可能在山上，可能在森林旁，但无论在哪里，都充满了爱与温暖。你们的孩子在自然中长大，学会了多种语言，有着开阔的视野和自由的心灵。经济上不算富裕，但足够支撑你们简单的生活，更重要的是，你们拥有彼此和内心的平静。",
+                        icon: "☀️"
+                    },
+                    {
+                        name: "被抹杀的阳光·顾北辰版",
+                        type: "悲剧结局",
+                        analysis: "你动摇了，最终没选他。顾北辰视这缕阳光为碍眼尘埃，无法容忍他的'所有物'心有他光。一次'意外'商业并购，沈墨阳家族小企业被无情碾碎背上巨债，被迫远走他乡永无宁日。他最后信息：'别找我，忘了我，好好活着。'你永远失去了阳光，余生在顾北辰打造的没有温度黄金囚笼里。日常奢华却麻木，每次闭眼都是他最后绝望的眼神。",
+                        daily: "现在你的生活奢华而空洞。早晨，你在豪华卧室醒来，佣人已经准备好精致的早餐；上午，造型师为你搭配当季最新款的服饰；下午，你参加各种名流活动，表面光鲜亮丽；晚上，你陪顾北辰出席商业晚宴，或者在巨大的别墅里独自等待他的归来。物质上什么都不缺，但内心空空如也。你时常想起沈墨阳阳光般的笑容，想起他曾经给你的温暖和自由，但这些回忆只会让现在的奢华生活显得更加讽刺和悲哀。你在黄金囚笼里度过余生，外表光鲜，内心早已枯萎。",
+                        icon: "💔"
+                    },
+                    {
+                        name: "被抹杀的阳光·林清羽版",
+                        type: "悲剧结局",
+                        analysis: "他的存在让林清羽感到无法用权势衡量的威胁。林清羽用最阴毒方式伪造他'抄袭''品行不端'等罪名，通过网络媒体无限放大。社会性死亡比物理更残忍。沈墨阳百口莫辩，所有合作机会消失，被舆论压垮最终离开伤心地，灿烂笑容再未出现。林清羽温柔擦你眼泪：'看，只有我不会伤害你。'你的日常从此在他的'呵护'与监控下，再也看不到真正阳光。",
+                        daily: "现在你的生活在林清羽的'呵护'下进行。早晨，他为你准备早餐，温柔体贴；上午，他送你去工作，但会随时联系确认你的行踪；下午，他可能会'偶然'出现在你公司附近，接你下班；晚上，你们一起用餐，他细心照顾你的每一个需求。表面上，他是完美的伴侣，温柔、体贴、无微不至。但实际上，你的每一个举动都在他的监控下，每一个朋友都要经过他的审核，每一次外出都要详细报备。生活看似完美，实则令人窒息，你时常在深夜醒来，想起那个曾经给你真正自由的阳光男孩，但一切都已经太迟。",
+                        icon: "💔"
+                    },
+                    {
+                        name: "被抹杀的阳光·苏婉柔版",
+                        type: "悲剧结局",
+                        analysis: "苏婉柔看不起他，认为爱廉价无用，更无法忍受你唯一的退路。她策划一场'意外'交通事故。他为保护身边孩子重伤不治。临终前他说：'别哭…要向着太阳…'苏婉柔事后假惺惺安慰，眼底却是冰冷得意。你的日常最终被卷入她充满算计的世界，失去了最后光亮，变得和她一样只剩对权力与生存的渴望。那缕曾照亮你的阳光，在你眼前彻底熄灭。",
+                        daily: "现在你的生活充满了算计和争斗。早晨，你在豪华公寓醒来，立即查看股市和商业新闻；上午，你在公司处理各种商业事务，用尽手段打压竞争对手；下午，你参加商业谈判，冷酷无情地争取最大利益；晚上，你出席各种商业应酬，在虚伪的笑容下进行着利益交换。你已经成为了另一个苏婉柔，精明、冷酷、目标明确。偶尔在深夜，你会想起沈墨阳阳光般的笑容，想起他曾经给你的纯真和温暖，但这些回忆只会让你更加坚定地走在现在的道路上——因为你知道，那个纯真的世界已经永远离你而去，你只能在这个残酷的世界里继续生存下去。",
+                        icon: "💔"
+                    }
+                ],
+                analysis: [
+                    "沈墨阳的阳光开朗是他对抗世界复杂性的方式，他选择看到美好而非黑暗。",
+                    "他的艺术创作是他表达情感和理解世界的方式，也是他与他人建立连接的桥梁。",
+                    "表面无忧无虑，实则内心敏感细腻，能够深刻理解他人的痛苦。",
+                    "他的简单纯粹不是幼稚，而是经过深思熟虑后选择的处世哲学。",
+                    "只有真正理解他价值观的人，才能与他建立深厚而持久的情感连接。"
+                ]
+            }
+        };
+        
+        // === 页面状态管理 ===
+        let currentQuestionIndex = 0;
+        let selectedCharacter = "gu"; // 默认选择顾北辰
+        let userAnswers = [];
+        
+        // === 初始化函数 ===
+        function init() {
+            // 首先检查访问权限
+            if (!checkAccess()) {
+                return; // 如果已过期，停止后续初始化
+            }
+            
+            createStars();
+            
+            // 绑定角色选择事件
+            document.querySelectorAll('.character-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.character-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedCharacter = this.dataset.character;
+                });
+                
+                // 添加触摸反馈
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // 绑定按钮事件
+            document.getElementById('startQuiz').addEventListener('click', startQuiz);
+            document.getElementById('backToNovel').addEventListener('click', backToNovel);
+            document.getElementById('prevQuestion').addEventListener('click', prevQuestion);
+            document.getElementById('backToCharacter').addEventListener('click', backToCharacter);
+            document.getElementById('restartTest').addEventListener('click', restartTest);
+            
+            // 添加触摸反馈到按钮
+            document.querySelectorAll('.btn, .nav-btn, .prev-question-btn, .back-character-btn').forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                btn.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // 在控制台显示店主登录提示
+            console.log('👑 店主登录：在控制台执行 ownerLogin("xingtong2024") 可跳过时间限制');
+        }
+        
+        // 开始测试
+        function startQuiz() {
+            if (!checkAccess()) return;
+            
+            if (!selectedCharacter) {
+                alert('请先选择一个角色故事线！');
+                return;
+            }
+            
+            // 重置状态
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            
+            // 切换到测试页
+            document.getElementById('characterPage').classList.remove('active');
+            document.getElementById('quizPage').classList.add('active');
+            
+            // 显示第一题
+            displayQuestion(currentQuestionIndex);
+        }
+        
+        // 显示题目
+        function displayQuestion(index) {
+            const character = characters[selectedCharacter];
+            const question = character.questions[index];
+            
+            // 更新角色标识
+            document.getElementById('characterIndicator').textContent = `【${character.name}的专属题目】`;
+            
+            document.getElementById('questionText').textContent = question.text;
+            
+            // 更新进度
+            const progress = ((index + 1) / character.questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `${index + 1}/${character.questions.length}`;
+            document.getElementById('currentQuestion').textContent = index + 1;
+            
+            // 生成选项
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option-item';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add('selected');
+                }
+                optionElement.textContent = option;
+                
+                optionElement.addEventListener('click', function() {
+                    // 选中当前选项
+                    userAnswers[index] = i;
+                    
+                    // 更新UI
+                    document.querySelectorAll('.option-item').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // 自动跳转到下一题
+                    setTimeout(() => {
+                        nextQuestion();
+                    }, 500);
+                });
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // 更新上一题按钮状态
+            document.getElementById('prevQuestion').style.visibility = index > 0 ? 'visible' : 'hidden';
+        }
+        
+        // 下一题
+        function nextQuestion() {
+            if (userAnswers[currentQuestionIndex] === undefined) {
+                return; // 未选择选项时不执行任何操作
+            }
+            
+            currentQuestionIndex++;
+            const character = characters[selectedCharacter];
+            
+            if (currentQuestionIndex >= character.questions.length) {
+                showResults();
+            } else {
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+        
+        // 上一题
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+        
+        // 显示结果
+        function showResults() {
+            const character = characters[selectedCharacter];
+            
+            // 根据答案计算结局
+            const endingIndex = calculateEnding();
+            const ending = character.endings[endingIndex];
+            
+            // 更新结果内容
+            document.getElementById('resultType').textContent = ending.type;
+            document.getElementById('resultIcon').textContent = ending.icon;
+            document.getElementById('resultName').textContent = ending.name;
+            document.getElementById('resultAnalysis').textContent = ending.analysis;
+            document.getElementById('resultDaily').textContent = ending.daily;
+            
+            // 应用角色特定样式
+            const resultCard = document.getElementById('resultCard');
+            resultCard.className = `result-card bg-${character.color}`;
+            document.getElementById('resultName').className = `result-name character-${character.color}`;
+            
+            // 更新角色分析
+            const characterAnalysisContainer = document.getElementById('characterAnalysis');
+            characterAnalysisContainer.innerHTML = '';
+            
+            character.analysis.forEach((analysis, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'analysis-step';
+                stepElement.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <p>${analysis}</p>
+                `;
+                characterAnalysisContainer.appendChild(stepElement);
+            });
+            
+            // 生成唯一的ID
+            const trackId = 'ST-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            document.getElementById('starTrackId').innerHTML = `<a href="https://xhslink.com/m/1HpWUO6Yhkn" target="_blank" style="color: var(--accent-color); text-decoration: underline;">${trackId}</a>`;
+            
+            // 切换到结果页
+            document.getElementById('quizPage').classList.remove('active');
+            document.getElementById('resultPage').classList.add('active');
+        }
+        
+        // 计算结局（优化后的评分系统）
+        function calculateEnding() {
+            const character = characters[selectedCharacter];
+            let scores = [0, 0, 0, 0]; // 对应4个结局的分数
+            
+            userAnswers.forEach((answer, index) => {
+                // 根据具体题目内容分配权重
+                switch(selectedCharacter) {
+                    case 'gu': // 顾北辰
+                        switch(index) {
+                            // 关键题目 - 第18题（意识云端上传）
+                            case 17:
+                                if(answer === 0) { scores[0] += 10; } // 同意数字永生 - 结局1
+                                else if(answer === 1) { scores[1] += 8; scores[3] += 5; } // 拒绝 - 结局2/4
+                                else if(answer === 2) { scores[2] += 10; } // 要求保持独立意志 - 结局3
+                                else if(answer === 3) { scores[2] += 8; scores[0] += 5; } // 提议试验 - 结局3/1
+                                break;
+                            // 关键题目 - 第19题（定义新世界）
+                            case 18:
+                                if(answer === 0) { scores[0] += 8; } // 站在他身边 - 结局1
+                                else if(answer === 1) { scores[1] += 10; } // 摧毁服务器 - 结局2
+                                else if(answer === 2) { scores[2] += 10; } // 加入制衡锁 - 结局3
+                                else if(answer === 3) { scores[1] += 8; scores[3] += 5; } // 离开 - 结局2/4
+                                break;
+                            // 其他题目根据具体内容分配权重
+                            case 0: // 初次见面
+                                if(answer === 0) { scores[0] += 3; scores[2] += 1; }
+                                else if(answer === 1) { scores[1] += 2; scores[3] += 1; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[2] += 3; scores[0] += 1; }
+                                break;
+                            case 1: // 第一个任务
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[2] += 3; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[1] += 2; scores[2] += 1; }
+                                break;
+                            case 2: // 神经链接设备
+                                if(answer === 0) { scores[0] += 4; }
+                                else if(answer === 1) { scores[2] += 3; }
+                                else if(answer === 2) { scores[3] += 3; scores[1] += 1; }
+                                else if(answer === 3) { scores[2] += 4; scores[1] += 1; }
+                                break;
+                            case 3: // 忠诚度系统
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[3] += 3; }
+                                else if(answer === 2) { scores[1] += 3; }
+                                else if(answer === 3) { scores[2] += 3; scores[1] += 1; }
+                                break;
+                            case 4: // 关键数据
+                                if(answer === 0) { scores[0] += 3; scores[2] += 1; }
+                                else if(answer === 1) { scores[2] += 3; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[1] += 3; }
+                                break;
+                            case 5: // 极限运动
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[3] += 3; }
+                                else if(answer === 2) { scores[3] += 2; }
+                                else if(answer === 3) { scores[2] += 3; }
+                                break;
+                            case 6: // 晕倒后
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[3] += 2; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[2] += 3; }
+                                break;
+                            case 7: // 公司危机
+                                if(answer === 0) { scores[0] += 4; }
+                                else if(answer === 1) { scores[3] += 4; }
+                                else if(answer === 2) { scores[1] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 8: // 生物信息同步
+                                if(answer === 0) { scores[0] += 4; }
+                                else if(answer === 1) { scores[1] += 4; }
+                                else if(answer === 2) { scores[2] += 4; }
+                                else if(answer === 3) { scores[2] += 3; scores[0] += 1; }
+                                break;
+                            case 9: // 信息筛选
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[1] += 3; }
+                                else if(answer === 2) { scores[2] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 10: // AI管家
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[2] += 3; }
+                                else if(answer === 2) { scores[1] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 11: // 商业决策
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[2] += 3; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 12: // 资产投入
+                                if(answer === 0) { scores[0] += 4; }
+                                else if(answer === 1) { scores[1] += 3; }
+                                else if(answer === 2) { scores[2] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 13: // 行为数据使用
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[1] += 4; }
+                                else if(answer === 2) { scores[2] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 14: // 团建游戏
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[3] += 3; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[2] += 3; }
+                                break;
+                            case 15: // 人类进化蓝图
+                                if(answer === 0) { scores[0] += 4; }
+                                else if(answer === 1) { scores[1] += 4; }
+                                else if(answer === 2) { scores[2] += 4; }
+                                else if(answer === 3) { scores[2] += 4; scores[1] += 1; }
+                                break;
+                            case 16: // 安全威胁
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[3] += 3; }
+                                else if(answer === 2) { scores[3] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                            case 19: // 孩子教育
+                                if(answer === 0) { scores[0] += 3; }
+                                else if(answer === 1) { scores[1] += 3; }
+                                else if(answer === 2) { scores[2] += 3; }
+                                else if(answer === 3) { scores[2] += 4; }
+                                break;
+                        }
+                        break;
+                        
+                    case 'lin': // 林清羽
+                        switch(index) {
+                            // 关键题目 - 第18题（求婚协议）
+                            case 17:
+                                if(answer === 0) { scores[0] += 10; } // 签署 - 结局1
+                                else if(answer === 1) { scores[1] += 8; } // 拒绝 - 结局2
+                                else if(answer === 2) { scores[2] += 10; } // 谈判 - 结局3
+                                else if(answer === 3) { scores[3] += 8; } // 拖延 - 结局4
+                                break;
+                            // 关键题目 - 第19题（执掌棋局）
+                            case 18:
+                                if(answer === 0) { scores[0] += 8; } // 接受 - 结局1
+                                else if(answer === 1) { scores[1] += 10; } // 拒绝 - 结局2
+                                else if(answer === 2) { scores[3] += 10; } // 无奈 - 结局4
+                                else if(answer === 3) { scores[2] += 10; } // 反制 - 结局3
+                                break;
+                            // 其他题目...
+                            default:
+                                // 为其他题目设置更合理的权重
+                                if(answer === 0) { scores[0] += 3; } // A选项偏向结局1
+                                else if(answer === 1) { scores[1] += 3; } // B选项偏向结局2
+                                else if(answer === 2) { scores[2] += 3; } // C选项偏向结局3
+                                else if(answer === 3) { scores[3] += 3; } // D选项偏向结局4
+                                break;
+                        }
+                        break;
+                        
+                    case 'su': // 苏婉柔
+                        switch(index) {
+                            // 关键题目 - 第16题（牺牲林清羽利益）
+                            case 15:
+                                if(answer === 0) { scores[1] += 10; } // 阻止她 - 结局2
+                                else if(answer === 1) { scores[3] += 8; } // 不阻止但要求 - 结局4
+                                else if(answer === 2) { scores[2] += 10; } // 找替代方案 - 结局3
+                                else if(answer === 3) { scores[0] += 10; } // 支持她 - 结局1
+                                break;
+                            // 关键题目 - 第18题（决战前夜）
+                            case 17:
+                                if(answer === 0) { scores[0] += 10; } // 共进退 - 结局1
+                                else if(answer === 1) { scores[2] += 8; } // 收下但不走 - 结局3
+                                else if(answer === 2) { scores[1] += 8; } // 强行带走 - 结局2
+                                else if(answer === 3) { scores[3] += 10; } // 真的离开 - 结局4
+                                break;
+                            // 其他题目...
+                            default:
+                                if(answer === 0) { scores[0] += 3; } // A选项偏向结局1
+                                else if(answer === 1) { scores[1] += 3; } // B选项偏向结局2
+                                else if(answer === 2) { scores[2] += 3; } // C选项偏向结局3
+                                else if(answer === 3) { scores[3] += 3; } // D选项偏向结局4
+                                break;
+                        }
+                        break;
+                        
+                    case 'shen': // 沈墨阳
+                        switch(index) {
+                            // 关键题目 - 第10题（跟他走）
+                            case 9:
+                                if(answer === 0) { scores[0] += 15; } // 毫不犹豫 - 结局1
+                                else if(answer === 1) { scores[3] += 10; } // 犹豫 - 结局4
+                                else if(answer === 2) { scores[3] += 8; } // 拒绝 - 结局4
+                                else if(answer === 3) { scores[3] += 5; } // 给时间 - 结局4
+                                break;
+                            // 关键题目 - 第20题（最终意义）
+                            case 19:
+                                if(answer === 0) { scores[0] += 10; } // 救赎 - 结局1
+                                else if(answer === 1) { scores[0] += 8; } // 归宿 - 结局1
+                                else if(answer === 2) { scores[0] += 8; } // 爱情 - 结局1
+                                else if(answer === 3) { scores[0] += 6; } // 另一个自己 - 结局1
+                                break;
+                            // 其他题目主要影响悲剧结局的类型
+                            default:
+                                if(answer === 0) { scores[0] += 2; } // 偏向HE
+                                else if(answer === 1) { scores[1] += 3; } // 偏向顾北辰悲剧
+                                else if(answer === 2) { scores[2] += 3; } // 偏向林清羽悲剧
+                                else if(answer === 3) { scores[3] += 3; } // 偏向苏婉柔悲剧
+                                break;
+                        }
+                        break;
+                }
+            });
+            
+            // 返回得分最高的结局索引
+            const maxScore = Math.max(...scores);
+            const maxIndices = scores.reduce((acc, score, index) => {
+                if (score === maxScore) acc.push(index);
+                return acc;
+            }, []);
+            
+            // 如果有多个结局得分相同，随机选择一个
+            return maxIndices[Math.floor(Math.random() * maxIndices.length)];
+        }
+        
+        // 重新测试
+        function restartTest() {
+            if (!checkAccess()) return;
+            
+            // 重置状态
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            selectedCharacter = "gu"; // 重置为默认选择顾北辰
+            
+            // 切换到角色选择页
+            document.getElementById('resultPage').classList.remove('active');
+            document.getElementById('characterPage').classList.add('active');
+            
+            // 重置角色选择
+            document.querySelectorAll('.character-card').forEach(c => c.classList.remove('selected'));
+            document.querySelector('.character-card[data-character="gu"]').classList.add('selected');
+        }
+        
+        // 初始化应用
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
